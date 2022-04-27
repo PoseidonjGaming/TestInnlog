@@ -42,13 +42,13 @@
                                         <a class="dropdown-item" href="{{path('gerer_parcour')}}">Gérer les parcours</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="{{path('gerer_sortie')}}">Gérer les type de sorties</a>
+                                        <a class="dropdown-item" href="{{path('gerer_sortie')}}">Gérer les types de sortie</a>
                                     </li>
                                    
                                     
                                     {% if is_granted('ROLE_super_admin') %}
                                         <li>
-                                            <a type="button" class="dropdown-item" href="{{path('gerer_user')}}">Gérer les utilisateur</a>
+                                            <a type="button" class="dropdown-item" href="{{path('gerer_user')}}">Gérer les utilisateurs</a>
                                         </li>
                                     {% endif %}
                                     
