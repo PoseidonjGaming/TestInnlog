@@ -116,7 +116,7 @@ function trie(col, reverse){
     window.ListeFitre=[]
     
     window.ListeBase.forEach(function(e){
-        console.log(verif(e))
+        
         if(verif(e)){
             tempListe.push(e)
             sortListe.push(e[col])
@@ -134,7 +134,7 @@ function trie(col, reverse){
             }
         })
     })
-    console.log(sortListe)
+   
     modif(0,10,1,window.ListeFitre)
 }
 
