@@ -10,80 +10,80 @@
 
 <div class="example-wrapper">
     <form  method="get" id="form">
-    <table class="table table-striped table-hover table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th style="text-align: center; vertical-align: middle;">Utilisateur <a class="link-primary" id="sort_user">Default</a></th>
-                <th style="text-align: center; vertical-align: middle;">Type de sortie <a class="link-primary" id="sort_sortie">Default</a></th>
-                <th style="text-align: center; vertical-align: middle;">Heure de début <a class="link-primary" id="sort_heure">Default</a></th>
-                <th style="text-align: center; vertical-align: middle;">Distance <a class="link-primary" id="sort_distance">Default</a></th>
-                <th style="text-align: center; vertical-align: middle;" >
-                    <button type="button" class="btn btn-success"  name="ajout" id="ajout" data-bs-toggle="modal" data-bs-target="#modal_modifier"
-                    onclick="modifier()"> 
-                        Ajouter un parcour
-                    </button>
-                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer tous les acteurs</button>
-                    <button type="button" class="btn btn-secondary"  name="extract" id="extract" data-bs-toggle="modal" data-bs-target="#modal_supprimer"
-                    onclick="exporter()"> 
-                        Exporter un parcour
-                    </button>
-                    <button type="button" class="btn btn-primary"  name="addSModal" id="addSModal" data-bs-toggle="modal" data-bs-target="#modal_acteurs_add"> 
-                        Ajouter plusieurs parcours
-                    </button>
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th style="text-align: center; vertical-align: middle;">Utilisateur <a class="link-primary" id="sort_user">Default</a></th>
+                    <th style="text-align: center; vertical-align: middle;">Type de sortie <a class="link-primary" id="sort_user">Default</a></th>
+                    <th style="text-align: center; vertical-align: middle;">Heure de début <a class="link-primary" id="sort_user">Default</a></th>
+                    <th style="text-align: center; vertical-align: middle;">Distance <a class="link-primary" id="sort_user">Default</a></th>
+                    <th style="text-align: center; vertical-align: middle;" >
+                        <button type="button" class="btn btn-success"  name="ajout" id="ajout" data-bs-toggle="modal" data-bs-target="#modal_modifier"
+                        onclick="modifier()"> 
+                            Ajouter un parcour
+                        </button>
+                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer tous les acteurs</button>
+                        <button type="button" class="btn btn-secondary"  name="extract" id="extract" data-bs-toggle="modal" data-bs-target="#modal_supprimer"
+                        onclick="exporter()"> 
+                            Exporter un parcour
+                        </button>
+                        <button type="button" class="btn btn-primary"  name="addSModal" id="addSModal" data-bs-toggle="modal" data-bs-target="#modal_acteurs_add"> 
+                            Ajouter plusieurs parcours
+                        </button>
+                    </th>
+                    <th style="text-align: center; vertical-align: middle;" width="150px">
+                        <label for="checkall">
+                            <input type="checkbox" id='checkall' name="checkall" > Tout cocher
+                        </label>      
+                    </th>
+                </tr>
+                <tr>
+                <th style="text-align: center; vertical-align: middle;">
+                    <input type="text" id="user" name="user">
                 </th>
-                <th style="text-align: center; vertical-align: middle;" width="150px">
-                    <label for="checkall">
-                        <input type="checkbox" id='checkall' name="checkall" > Tout cocher
-                    </label>      
-                </th>
-            </tr>
-            <tr>
-            <th style="text-align: center; vertical-align: middle;">
-                <input type="text" id="user" name="user">
-            </th>
-            <th style="text-align: center; vertical-align: middle;">
-                <input type="text" id="sortie" name="sortie">
-            </th> 
-            <th style="text-align: center; vertical-align: middle;">
-                <input type="date" id="dateD" name="dateD">
-                <input type="time" id="heureD" name="heureD">
-            </th> 
-            <th style="text-align: center; vertical-align: middle;">
-                <input type="number" id="distance" name="distance" min="0">
-            </th> 
-            <th style="text-align: center; vertical-align: middle;">
-                
-            </th> 
-            <th style="text-align: center; vertical-align: middle;">
-                <label class="switch">
-                    <input type="checkbox" id="checkExport" name="checkExport" onclick="modExport()">
-                    <span class="slider round"></span>
-                </label>
-            </th>
-        </tr>
-        </thead>
-        <tbody id="parcours">  
-        {% for unParcour in parcours %}
-            <tr>
-                <td style="text-align: center; vertical-align: middle;">{{unParcour.user.username}}</td>
-                <td style="text-align: center; vertical-align: middle;">{{unParcour.TypeSortie.libelle}}</td>
-                <td style="text-align: center; vertical-align: middle;">{{unParcour.heureDebut|date("H:i")}}</td>
-                <td style="text-align: center; vertical-align: middle;">{{unParcour.distance}}</td>
-                <td style="text-align: center; vertical-align: middle;">
-                    <button type="button" class="btn btn-warning"  name="{{unParcour.id}}" id="{{unParcour.id}}" data-bs-toggle="modal" data-bs-target="#modal_modifier" 
-                    onclick="modifier('{{unParcour.commentaire}}','{{unParcour.heureDebut|date("Y-m-d")}}','{{unParcour.heureDebut|date("H:i")}}','{{unParcour.id}}')"> 
-                        Modifier
-                    </button>
-                    <button type="button" class="btn btn-danger"  name="sup" id="sup" data-bs-toggle="modal" data-bs-target="#modal_supprimer" onclick="supprimer('{{unParcour.id}}')">Supprimer</button>
+                <th style="text-align: center; vertical-align: middle;">
+                    <input type="text" id="sortie" name="sortie">
+                </th> 
+                <th style="text-align: center; vertical-align: middle;">
+                    <input type="date" id="dateD" name="dateD">
+                    <input type="time" id="heureD" name="heureD">
+                </th> 
+                <th style="text-align: center; vertical-align: middle;">
+                    <input type="number" id="distance" name="distance" min="0">
+                </th> 
+                <th style="text-align: center; vertical-align: middle;">
                     
-                </td>
-                <td style="text-align: center; vertical-align: middle;">
-                    <input type="checkbox" id='{{unParcour.id}}' name="{{unParcour.id}}">
-                </td>
+                </th> 
+                <th style="text-align: center; vertical-align: middle;">
+                    <label class="switch">
+                        <input type="checkbox" id="checkExport" name="checkExport" onclick="modExport()">
+                        <span class="slider round"></span>
+                    </label>
+                </th>
             </tr>
-        {% endfor %}   
-        </tbody>
-    </table>
+            </thead>
+            <tbody id="parcours">  
+            {% for unParcour in parcours %}
+                <tr>
+                    <td style="text-align: center; vertical-align: middle;">{{unParcour.user.username}}</td>
+                    <td style="text-align: center; vertical-align: middle;">{{unParcour.TypeSortie.libelle}}</td>
+                    <td style="text-align: center; vertical-align: middle;">{{unParcour.heureDebut|date("H:i")}}</td>
+                    <td style="text-align: center; vertical-align: middle;">{{unParcour.distance}}</td>
+                    <td style="text-align: center; vertical-align: middle;">
+                        <button type="button" class="btn btn-warning"  name="{{unParcour.id}}" id="{{unParcour.id}}" data-bs-toggle="modal" data-bs-target="#modal_modifier" 
+                        onclick="modifier('{{unParcour.commentaire}}','{{unParcour.heureDebut|date("Y-m-d")}}','{{unParcour.heureDebut|date("H:i")}}','{{unParcour.id}}')"> 
+                            Modifier
+                        </button>
+                        <button type="button" class="btn btn-danger"  name="sup" id="sup" data-bs-toggle="modal" data-bs-target="#modal_supprimer" onclick="supprimer('{{unParcour.id}}')">Supprimer</button>
+                        
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;">
+                        <input type="checkbox" id='{{unParcour.id}}' name="{{unParcour.id}}">
+                    </td>
+                </tr>
+            {% endfor %}   
+            </tbody>
+        </table>
     
         <div class="modal fade" id="modal_supprimer" tabindex="-1" data-bs-keyboard="true" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             <div class="modal-dialog" >
@@ -137,55 +137,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal_acteurs_add" tabindex="-1" data-bs-keyboard="true" 
-    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >  
-        <div class="modal-dialog modal-fullscreen" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle"> Ajout de plusieurs acteurs </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="ajout/acteurs" enctype="multipart/form-data">
-                        <table class="table table-striped table-hover table-bordered" >
-                            <thead class="table-dark">
-                                <tr>
-                                    <th style="text-align: center; vertical-align: middle; width:50%" >Prénom</th>
-                                    <th style="text-align: center; vertical-align: middle;">Nom</th>
-                                </tr>
-                            </thead>
-                            <tbody id="acteurS">
-                                <tr>
-                                    <th style="text-align: center; vertical-align: middle;" colspan="7"> 
-                                        <button type="button" class="btn btn-success"  name="addS" id="addS"> 
-                                            Ajouter un acteur
-                                        </button>
-                                        <button type="button" class="btn btn-danger"  name="supS" id="supS"> 
-                                            Retirer un acteur
-                                        </button>
-                                        <input class="btn btn-primary" type="submit" id="submit" name="submit" value="Valider">
-                                    </th>
-                                </tr>
-                                <input type="hidden" id="maxActeur" name="maxActeur" value="1">
-                                <tr id="row_0">
-                                    <th style="text-align: center; vertical-align: middle;">
-                                        <input type="text" id="inputNom_0" name="inputNom_0">
-                                    </th>
-                                    <th style="text-align: center; vertical-align: middle;">
-                                        <input type="text" id="inputPrenom_0" name="inputPrenom_0">
-                                    </th> 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon" >Non</button>             
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <ul class="pagination justify-content-center" >
     <nav>
         <ul class="pagination" id="pages">
@@ -312,7 +264,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             
         target=e.target.value
         window.distance=target
-       
+        console.log(target)
         modif(0,10,1,window.ListeBase)
 
     })
@@ -330,15 +282,15 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
         modif(0,10,1,window.ListeBase)
 
     })*/
-    $('#sort_user').click(function(){
+    $('#sort_nom').click(function(){
     
         
         if(this.innerHTML=="Default"){
-            trie('username',false)
+            trie('nom',false)
             this.innerHTML="A...Z"
         }
         else if(this.innerHTML=="A...Z"){
-            trie('username',true)
+            trie('nom',true)
             this.innerHTML="Z...A"
         }
         else{
@@ -348,33 +300,15 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
         }
         
     })
-    $('#sort_sortie').click(function(){
+    $('#sort_prenom').click(function(){
     
         
         if(this.innerHTML=="Default"){
-            trie('sortie',false)
+            trie('prenom',false)
             this.innerHTML="A...Z"
         }
         else if(this.innerHTML=="A...Z"){
-            trie('sortie',true)
-            this.innerHTML="Z...A"
-        }
-        else{
-                    
-            trie('id',false)
-            this.innerHTML="Default"
-        }
-        
-    })
-    $('#sort_heure').click(function(){
-    
-        
-        if(this.innerHTML=="Default"){
-            trie('heureDebut',false)
-            this.innerHTML="A...Z"
-        }
-        else if(this.innerHTML=="A...Z"){
-            trie('heureDebut',true)
+            trie('prenom',true)
             this.innerHTML="Z...A"
         }
         else{

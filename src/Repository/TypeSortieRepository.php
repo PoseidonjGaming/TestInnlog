@@ -47,4 +47,13 @@ class TypeSortieRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findUneSortie($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->Where('p.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

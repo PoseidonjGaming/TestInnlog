@@ -38,4 +38,12 @@ class TypeSortie
 
         return $this;
     }
+
+    public function dataJson(){      
+        $data=[
+            'id'=>$this->getId(),
+            "libelle"=>$this->getLibelle()
+        ];
+        return $data;
+    }
 }

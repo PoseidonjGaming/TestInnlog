@@ -1,29 +1,13 @@
 buttonsRow=""
-user=""
-sortie=""
-heureDebutTime=""
-heureDebutDate=""
-distance=""
-
+nom=""
 
 function verif(e){
     bool=true
     
-    if(window.user!==""){
-        bool=bool && e['username'].includes(window.user)
+    if(window.nom!=""){
+        bool=bool && e['libelle'].includes(window.nom)
     }
-    if(window.sortie!==""){
-        bool=bool && e['sortie'].includes(window.sortie)
-    }
-    if(window.distance!==""){
-        bool=bool && e['distance']==window.distance
-    }
-    
-    if(window.heureDebutTime!=="" || window.heureDebutDate!==''){
-        
-        temp=new Date(e['heureDebut']['date'])
-        bool=bool && (temp.getTime()==window.heureDebutTime.getTime() ||temp.getTime()==window.heureDebutDate.getTime())
-    }
+
     return bool
     
     
@@ -45,14 +29,14 @@ function filtre(min,max,mod){
        
         
         
-        
-        colButton.children[0].setAttribute('onclick','modifier("'+e['username']+'","'+e['id']+'")')
+      
+        colButton.children[0].setAttribute('onclick','modifier("'+e['libelle']+'","'+e['id']+'")')
         colButton.children[0].setAttribute('id','modif_"'+e['id'])
         colButton.children[0].setAttribute('name','modif_"'+e['id'])
         colButton.children[1].setAttribute('onclick','supprimer("'+e['id']+'")')
         colButton.children[1].setAttribute('id','sup_"'+e['id'])
         colButton.children[1].setAttribute('name','sup_"'+e['id'])
-        colButton.children[1].setAttribute('href','gerer_episode/'+e['id'])
+        
 
         row.appendChild(colButton)
         if(window.boolExport){
@@ -89,21 +73,17 @@ function filtre(min,max,mod){
         
 }
 
-function modifier(commantaire, date,heure,id){
+function modifier(nom,id){
         
     if(id!=null){
-        document.getElementById('parcour_commentaire').value =commantaire;
-        document.getElementById('parcour_heureDebut_date').setAttribute('value', date);
-        document.getElementById('parcour_heureDebut_time').setAttribute('value', heure);
+        document.getElementById('sortie_form_libelle').setAttribute('value', nom);
         document.getElementById('ID').setAttribute('value',id);
-        document.getElementById('exampleModalLongTitle').innerHTML="Modification de l'utilisateur "            
+        document.getElementById('exampleModalLongTitle').innerHTML="Modification de la sortie"            
     }
     else{
-        document.getElementById('parcour_commentaire').value ="";
-        document.getElementById('parcour_heureDebut_date').setAttribute('value', "");
-        document.getElementById('parcour_heureDebut_time').setAttribute('value', "");
+        document.getElementById('user_form_username').setAttribute('value','');
         document.getElementById('ID').setAttribute('value','');
-        document.getElementById('exampleModalLongTitle').innerHTML="Ajouter un utilisateur"        
+        document.getElementById('exampleModalLongTitle').innerHTML="Ajouter une sortie"        
     }
     
 }
@@ -111,11 +91,11 @@ function modifier(commantaire, date,heure,id){
 
 function supprimer(Id){
     if(Id==null){
-        document.getElementById('form').action='/supprimer_parcours';
+        document.getElementById('form').action='/supprimer_sorties';
     }
     else{
         
-        document.getElementById('form').action='/supprimer_parcour/'+Id;
+        document.getElementById('form').action='/supprimer_sortie/'+Id;
     }
 }
 
@@ -142,8 +122,6 @@ function exporter(){
     
     
 }
-
-
 
 function modExport(){
     

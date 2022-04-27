@@ -42,14 +42,9 @@
                                         <a class="dropdown-item" href="{{path('gerer_parcour')}}">Gérer les parcours</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="{#{path('')}#}">Gérer les type de sorties</a>
+                                        <a class="dropdown-item" href="{{path('gerer_sortie')}}">Gérer les type de sorties</a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{#{path('')}#}">Gérer les acteurs</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{#{path('')}#}">Gérer les personnages</a>
-                                    </li>
+                                   
                                     
                                     {% if is_granted('ROLE_super_admin') %}
                                         <li>

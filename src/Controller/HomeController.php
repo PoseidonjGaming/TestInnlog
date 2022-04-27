@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Entity\Parcour;
+use App\Entity\TypeSortie;
 use App\Form\ParcourType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -59,11 +60,8 @@ class HomeController extends AbstractController
         elseif($_GET['type']=='parcour'){
             $items=$this->getDoctrine()->getRepository(Parcour::class)->findAll();
         }
-        elseif($_GET['type']=='acteur'){
-            $items=$this->getDoctrine()->getRepository(Acteur::class)->findAll();
-        }
         else{
-            $items=$this->getDoctrine()->getRepository(Personnage::class)->findAll();
+            $items=$this->getDoctrine()->getRepository(TypeSortie::class)->findAll();
         }
         
         //$items=$this->getDoctrine()->getRepository(Parcour::class)->findAll();
@@ -84,13 +82,8 @@ class HomeController extends AbstractController
     public function test(Request $request): Response
     { 
         
-        $items=$this->getDoctrine()->getRepository(Parcour::class)->findAll();
-        $data = [];
-        foreach($items as $unItem){
-            $data[]=$unItem->dataJson();
-        }
-        
-        dump($data);
+      
+        dump($_GET);
         return $this->render('test.html.twig', [
             
         ]);
