@@ -31,7 +31,7 @@
                 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        {% if is_granted('ROLE_USER') %}
+                        {% if is_granted('ROLE_admin') %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" role="button" id="dropdownAdminButton" data-bs-toggle="dropdown"  aria-expanded="false">
                                     Administration
@@ -55,7 +55,16 @@
                                 </ul> 
                             </li>
                             
-
+                            <li class="nav-item">
+                                <a type="button" class="nav-link"  name="import" id="import" data-bs-toggle="modal" data-bs-target="#modal_import"> 
+                                    Importer des données
+                                </a>     
+                            </li>
+                            <li class="nav-item">
+                                <a type="button" class="nav-link dropdown-toggle"  name="export" id="export" data-bs-toggle="modal" data-bs-target="#modal_export"> 
+                                    Expoter des données
+                                </a>     
+                            </li>
                         {% endif %}
                     </ul>
                     <div class="d-flex">
@@ -87,8 +96,72 @@
                                 </form>
                             </div> 
                         </ul>
-                            
+
                         {% endif %}  
+                        <div class="modal fade" id="modal_import" tabindex="-1" data-bs-keyboard="true" 
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >  
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ModalCenterTitleExport"> Importation de données</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <form  method="post" action="/import" enctype="multipart/form-data">
+                                                <p>Veuillez importer un fichier au format Excel(.xlsx) ou doc (.ods)</p>
+                                                <p>Fichier parcour: <input type="file" id="fichierParcour"  multiple name="fichierParcour" /></p>
+                                                <p>Fichier type de sortie: <input type="file" id="fichierSortie" name="fichierSortie"></p>
+                                                <p>Fichier utilisateur: <input type="file" id="fichierUser" name="fichierUser"></p>
+                                                <p>Fichier personnage: <input type="file" id="fichierPersonnage" name="fichierPersonnage"></p>
+                                        </div>                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="btn btn-primary" type="submit" id="submit" name="submit">
+                                        <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon" >Non</button>
+                                        </form>     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="modal_export" tabindex="-1" data-bs-keyboard="true" 
+                            aria-labelledby="ModalCenterTitleExport" aria-hidden="true" >  
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ModalCenterTitleExport"> Importation de données</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <form  method="post" action="/export" enctype="multipart/form-data">
+                                                    <p>Veuillez choisir les données à exporter</p>
+                                                    <p>
+                                                        <label for="parcours">
+                                                            Expoter les parcours: <input type="checkbox" id='parcours' name="parcours" >  
+                                                        </label>
+                                                    </p>
+                                                    <p>
+                                                        <label for="sorties">
+                                                            Expoter les types de sorties: <input type="checkbox" id='sortiesExport' name="sortiesExport" >  
+                                                        </label>
+                                                    </p>
+                                                    <p>
+                                                        <label for="usersExport">
+                                                            Expoter les utilisateurs: <input type="checkbox" id='usersExport' name="usersExport" >  
+                                                        </label>
+                                                    </p>
+                                                    
+                                        </div>                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="btn btn-primary" type="submit" id="submit" name="submit">
+                                        <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon" >Non</button>
+                                        </form>     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

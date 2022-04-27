@@ -78,7 +78,7 @@ class TypeSortieController extends AbstractController
         $tab=array_keys($_GET);
         
         $entityManager=$this->getDoctrine()->getManager();
-        
+        dump($_GET);
         $exclude=["sortie","checkExport","checkall"];
         foreach($tab as $int){
             if(!in_array($int,$exclude)){
@@ -90,7 +90,11 @@ class TypeSortieController extends AbstractController
 
             
         }
-        return $this->redirectToRoute('gerer_sortie');
+        //return $this->redirectToRoute('gerer_sortie');
+        return $this->render('test.html.twig', [
+            
+          
+        ]);
     }
 
 }

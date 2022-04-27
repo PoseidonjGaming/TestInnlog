@@ -83,7 +83,7 @@ class Parcour
         return $this->duree;
     }
 
-    public function setDuree(?int $duree): self
+    public function setDuree(?float $duree): self
     {
         $this->duree = $duree;
 

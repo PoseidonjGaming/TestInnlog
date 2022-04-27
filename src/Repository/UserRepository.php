@@ -56,5 +56,15 @@ class UserRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function findUnUserByName($value): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->Where('u.username = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
     
 }
