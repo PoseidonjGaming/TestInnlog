@@ -4,6 +4,7 @@ sortie=""
 heureDebutTime=""
 heureDebutDate=""
 distance=""
+duree=""
 
 
 function verif(e){
@@ -17,6 +18,9 @@ function verif(e){
     }
     if(window.distance!==""){
         bool=bool && e['distance']>=window.distance
+    }
+    if(window.duree!==""){
+        bool=bool && e['Duree']>=window.duree
     }
     
     if(window.heureDebutTime!=="" || window.heureDebutDate!==''){

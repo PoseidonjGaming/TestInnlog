@@ -134,7 +134,7 @@ class Parcour
             "Duree"=>$this->getDuree(),
             "commentaire"=>$this->getCommentaire(),
             'heureDebut'=>$this->getHeureDebut(),
-            'HeureFormat'=>$this->getHeureDebut()->format("H:i:s"),
+            'HeureFormat'=>$this->getHeureDebut()->format("H:i"),
             'DateFormat'=>$this->getHeureDebut()->format("Y-m-d"),
             'distance'=>$this->getDistance()
         ];

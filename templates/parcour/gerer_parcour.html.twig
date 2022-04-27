@@ -15,6 +15,7 @@
                 <tr>
                     <th style="text-align: center; vertical-align: middle;">Utilisateur <a class="link-primary" id="sort_user">Default</a></th>
                     <th style="text-align: center; vertical-align: middle;">Type de sortie <a class="link-primary" id="sort_sortie">Default</a></th>
+                    <th style="text-align: center; vertical-align: middle;">Durée <a class="link-primary" id="sort_duree">Default</a></th>
                     <th style="text-align: center; vertical-align: middle;">Heure de début <a class="link-primary" id="sort_heure">Default</a></th>
                     <th style="text-align: center; vertical-align: middle;">Distance <a class="link-primary" id="sort_distance">Default</a></th>
                     <th style="text-align: center; vertical-align: middle;" >
@@ -41,6 +42,9 @@
                 </th>
                 <th style="text-align: center; vertical-align: middle;">
                     <input type="text" id="sortie" name="sortie">
+                </th> 
+                <th style="text-align: center; vertical-align: middle;">
+                    <input type="number" id="duree" name="duree" min="0" >
                 </th> 
                 <th style="text-align: center; vertical-align: middle;">
                     <input type="date" id="dateD" name="dateD">
@@ -160,7 +164,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             success: function(element){
                 
                 window.ListeBase=element
-                window.exception=['id','commentaire','heureDebut','DateFormat','HeureFormat']
+                window.exception=['id','commentaire','heureDebut','DateFormat']
                 
                 document.getElementById('user').value=""
                 document.getElementById('sortie').value=""
@@ -179,6 +183,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                 window.heureDebutDate=""
                 window.distance=""
                 window.sortie=""
+                window.duree=""
                
                 
                 
@@ -262,6 +267,14 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             
         target=e.target.value
         window.distance=target
+        console.log(target)
+        modif(0,10,1,window.ListeBase)
+
+    })
+     $('#duree').change(function(e){
+            
+        target=e.target.value
+        window.duree=target
         console.log(target)
         modif(0,10,1,window.ListeBase)
 
