@@ -96,14 +96,14 @@ function modifier(commantaire, date ,heure,id){
         document.getElementById('parcour_heureDebut_date').setAttribute('value', date);
         document.getElementById('parcour_heureDebut_time').setAttribute('value', heure);
         document.getElementById('ID').setAttribute('value',id);
-        document.getElementById('titreModalParcour').innerHTML="Modification du parcour"            
+        document.getElementById('titreModalParcour').innerHTML="Modification du parcours"            
     }
     else{
         document.getElementById('parcour_commentaire').value ="";
         document.getElementById('parcour_heureDebut_date').setAttribute('value', "");
         document.getElementById('parcour_heureDebut_time').setAttribute('value', "");
         document.getElementById('ID').setAttribute('value','');
-        document.getElementById('titreModalParcour').innerHTML="Ajouter un parcour"        
+        document.getElementById('titreModalParcour').innerHTML="Ajouter un parcours"        
     }
     
 }
