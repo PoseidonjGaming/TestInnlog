@@ -46,7 +46,7 @@ function filtre(min,max,mod){
         
         
         
-        colButton.children[0].setAttribute('onclick','modifier("'+e['username']+'","'+e['DateFormat']+'","'+e['HeureFormat']+'","'+e['id']+'")')
+        colButton.children[0].setAttribute('onclick','modifier("'+e['username']+'","'+e['DateFormat']+'","'+e['HeureFormat']+'","'+e['distance']+'","'+e['id']+'")')
         colButton.children[0].setAttribute('id','modif_"'+e['id'])
         colButton.children[0].setAttribute('name','modif_"'+e['id'])
         colButton.children[1].setAttribute('onclick','supprimer("'+e['id']+'")')
@@ -89,8 +89,8 @@ function filtre(min,max,mod){
         
 }
 
-function modifier(commantaire, date ,heure,id){
-    console.log(id)
+function modifier(commantaire, date ,heure, distance,id){
+    console.log(document.getElementById('distance').value=parseFloat(distance))
     if(id!=null){
         document.getElementById('parcour_commentaire').value =commantaire;
         document.getElementById('parcour_heureDebut_date').setAttribute('value', date);

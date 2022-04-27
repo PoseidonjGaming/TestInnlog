@@ -69,7 +69,7 @@
                     <td style="text-align: center; vertical-align: middle;">{{unParcour.distance}}</td>
                     <td style="text-align: center; vertical-align: middle;">
                         <button type="button" class="btn btn-warning"  name="{{unParcour.id}}" id="{{unParcour.id}}" data-bs-toggle="modal" data-bs-target="#modal_modifier" 
-                        onclick="modifier('{{unParcour.commentaire}}','{{unParcour.heureDebut|date("Y-m-d")}}','{{unParcour.heureDebut|date("H:i")}}','{{unParcour.id}}')"> 
+                        onclick="modifier('{{unParcour.commentaire}}','{{unParcour.heureDebut|date("Y-m-d")}}','{{unParcour.heureDebut|date("H:i")}}','{{unParcour.distance}}','{{unParcour.id}}')"> 
                             Modifier
                         </button>
                         <button type="button" class="btn btn-danger"  name="sup" id="sup" data-bs-toggle="modal" data-bs-target="#modal_supprimer" onclick="supprimer('{{unParcour.id}}')">Supprimer</button>
