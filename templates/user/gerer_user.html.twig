@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { font: 18px/1.5 sans-serif; background-color: #F5F5F5;}
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+   
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th style="text-align: center; vertical-align: middle; " >Nom</th>
+                    <th style="text-align: center; vertical-align: middle;">
+                       
+                        <button type="button" class="btn btn-success"  name="ajout" id="ajout" data-bs-toggle="modal" data-bs-target="#modal_modifier"
+                        onclick="modifier()"> 
+                            Ajouter une saison
+                        </button>
+                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer tous les utilisateur</button>
+                </th>
+                <th style="text-align: center; vertical-align: middle;" >
+                    <label for="checkall">
+                        <input type="checkbox" id='checkall' name="checkall" > Tout cocher
+                    </label>    
+                </th>
+            </tr>
+            <tr>
+                <th style="text-align: center; vertical-align: middle;">
+                    <input type="text" id="username" name="username">
+                </th>
+                <th style="text-align: center; vertical-align: middle;">
+                    
+                </th>
+                <th style="text-align: center; vertical-align: middle;" >
+                    <label class="switch">
+                        <input type="checkbox" id="checkExport" name="checkExport" onclick="modExport()">
+                        <span class="slider round"></span>
+                    </label>
+                </th> 
+            </tr>
+        </thead>
+        <tbody id="user">
+        {% for unUser in user %}
+            <tr>
+                <th style="text-align: center; vertical-align: middle;">{{unUser.username}}</th>
+                <th style="text-align: center; vertical-align: middle;">  
+                    <button type="button" class="btn btn-warning"  name="{{unUser.id}}" id="{{unUser.id}}" data-bs-toggle="modal" data-bs-target="#modal_modifier" onclick="modifier('{{unUser.username}}','{{unUser.id}}')"> 
+                        Modifier
+                    </button>
+                    <button type="button" class="btn btn-danger"  name="sup" id="sup" data-bs-toggle="modal" data-bs-target="#modal_supprimer" onclick="supprimer('{{unUser.id}}')">Supprimer</button>        
+                </th>
+                <th style="text-align: center; vertical-align: middle;">
+                    <input type="checkbox" id='{{unUser.id}}' name="{{unUser.id}}">
+                </th>
+            </tr>
+        {% endfor %}  
+        </tbody>
+    </table>
+    <form method="get" id="form">      
+        <div class="modal fade" id="modal_supprimer" tabindex="-1" data-bs-keyboard="true" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"> Modification de la série </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <p>Êtes-vous sur de vouloir supprimer cette série ?</p>
+                        </div>     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon">Non</button>
+                        <input type="submit" class="btn btn-danger delete"  id="submitAutre" value="Oui">
+                        <input type="hidden" class="btn btn-danger delete"  id="type" name="type" value="user">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<div class="modal fade" id="modal_modifier" tabindex="-1" data-bs-keyboard="true" 
+aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"> Modification de la série </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    {{form_start(formUser)}}
+                    <p>Login: {{form_widget(formUser.username)}}</p>
+                    <p>Mot de passe: {{form_widget(formUser.password)}}</p>
+                    <p>Saisir à nouveau le mot de passe: <input type="password" id="passwordConfirm" name="passwordConfirm" required></p>
+                    <p>
+                        <label for="roleAdmin">
+                            Role Admin: <input type="checkbox" id='roleAdmin' name="roleAdmin" > 
+                        </label>
+                        <label for="roleSuperAdmin">
+                            Role Super Admin: <input type="checkbox" id='roleSuperAdmin' name="roleSuperAdmin" > 
+                        </label>
+                    </p>
+                    {{form_widget(formUser.reset)}}
+                    <input id="ID" name="ID" type="hidden">
+                </div>                
+            </div>
+            <div class="modal-footer">
+                {{form_widget(formUser.Valider)}}
+                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon" >Non</a>
+                {{form_end(formUser)}}              
+            </div>
+        </div>
+    </div>
+</div>
+<ul class="pagination justify-content-center" >
+    <nav>
+        <ul class="pagination" id="pages">
+               
+        </ul>
+    </nav>
+</ul>
+{% endblock %}
+
+
+{% block javascripts %}
+<script src="/Javascript/user.js"></script>
+<script src="/Javascript/gestion.js"></script>
+<script>
+
+    $(document).ready(function(){
+        $.ajax({
+            url: "menuJSON?type=user",
+            context: document.body,
+            dataType:'json',
+            
+            
+            success: function(element){
+                
+                window.ListeBase=element
+                window.exception=['id']
+                
+                document.getElementById('username').value=""
+                window.nom=""
+               
+               
+                document.getElementById('checkExport').checked=false
+                document.getElementById('checkall').disabled=true
+                document.getElementById('checkall').checked=false
+                
+                
+                window.tbody=document.getElementById('user')
+                window.buttonsRow=tbody.children[0].children[1]
+                console.log(window.tbody.children[0])
+                trie('id',false)
+                
+            }
+        })
+
+
+    })
+    
+   $('#checkall').change(function () {
+        if($( this ).prop( "checked" )){
+            Array.from(window.tbody.children).forEach(function(e){
+                e.children[2].children[0].checked=true
+                window.listeExport.push(e.children[2].children[0].getAttribute('id'))
+            
+            })
+        } 
+        else {
+            Array.from(window.tbody.children).forEach(function(e){
+                if(window.listeExport.includes(e.children[2].children[0].getAttribute('id'))&&e.children[2].children[0].checked){
+                    window.listeExport.splice(window.listeExport.indexOf(e.children[2].children[0].getAttribute('id')),1)
+                    e.children[2].children[0].checked=false
+                }
+                
+                
+            })
+        }
+    }); 
+    
+   
+
+    
+
+</script>
+{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="CSS/switch.css" type="text/css">{% endblock %}

@@ -4,14 +4,184 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        {% endblock %}
+           <!-- CSS only -->
+            
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+            
 
+        {% endblock %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+            <!-- JavaScript Bundle with Popper -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+            <script src="https://static.doubleclick.net/instream/ad_status.js "></script>   
+
+       
+    </head>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+            <!-- top nav -->
+            <div class="container-fluid">
+                
+                    <a class="navbar-brand" href="{{path('menu')}}">Les Parcours</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        {% if is_granted('ROLE_USER') %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" id="dropdownAdminButton" data-bs-toggle="dropdown"  aria-expanded="false">
+                                    Administration
+                                </a>
+                            
+                                <ul class="dropdown-menu" aria-labelledby="dropdownAdminButton">
+                                    <li>
+                                        <a class="dropdown-item" href="{#{path('')}#}">Gérer les parcours</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{#{path('')}#}">Gérer les type de sorties</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{#{path('')}#}">Gérer les acteurs</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{#{path('')}#}">Gérer les personnages</a>
+                                    </li>
+                                    
+                                    {% if is_granted('ROLE_super_admin') %}
+                                        <li>
+                                            <a type="button" class="dropdown-item" href="{{path('gerer_user')}}">Gérer les utilisateur</a>
+                                        </li>
+                                    {% endif %}
+                                    
+                                </ul> 
+                            </li>
+                            <li class="nav-item">
+                                <a type="button" class="nav-link"  name="import" id="import" data-bs-toggle="modal" data-bs-target="#modal_import"> 
+                                    Importer des données
+                                </a>     
+                            </li>
+                            <li class="nav-item">
+                                <a type="button" class="nav-link dropdown-toggle"  name="export" id="export" data-bs-toggle="modal" data-bs-target="#modal_export"> 
+                                    Expoter des données
+                                </a>     
+                            </li>
+
+                        {% endif %}
+                    </ul>
+                    <div class="d-flex">
+                        {% if app.user %}            
+                            <a type="button" class="btn btn-danger me-2" href="{{path('app_logout')}}">Déconnexion</a>
+                        {% else %}
+                        <ul class="dropdown" >
+                            <a type="button" class="btn btn-success me-2" data-bs-toggle="dropdown" aria-expanded="false">Connexion</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownAdminButton" id="dropdown-login" style="width: 500px">
+                                <form  method="post">
+                                    {% if app.user %}
+                                        <div class="mb-3">
+                                            Vous êtes déjà connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                        </div>
+                                    {% endif %}
+
+                                    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                                    <label for="inputNom">Nom</label>
+                                    <input type="text"  name="nom" id="inputNom" class="form-control" autocomplete="username" required autofocus>
+                                    <label for="inputPassword">Password</label>
+                                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                                    <input type="hidden" name="_csrf_token"
+                                        value="{{ csrf_token('authenticate') }}">
+                                    <p></p>
+                                    <button class="btn btn-lg btn-primary" type="submit">
+                                        Connexion
+                                    </button>
+                                </form>
+                            </div> 
+                        </ul>
+                            
+                        {% endif %}  
+                    </div>
+                </div>
+                
+                <div class="modal fade" id="modal_import" tabindex="-1" data-bs-keyboard="true" 
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >  
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ModalCenterTitleExport"> Importation de données</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <form  method="post" action="/" enctype="multipart/form-data">
+                                        <p>Veuillez importer un fichier au format Excel(.xlsx) ou doc (.ods)</p>
+                                        <p>Fichier série: <input type="file" id="fichierSerie"  multiple name="fichierSerie[]" />
+                                          
+                                        </p>
+                                            
+                                       
+                                        <p>Fichier épisode: <input type="file" id="fichierEpisode" name="fichierEpisode">
+                                            
+                                            
+                                        </p>
+                                        <p>Fichier acteur: <input type="file" id="fichierActeur" name="fichierActeur">
+                                           
+                                        <p>Fichier personnage: <input type="file" id="fichierPersonnage" name="fichierPersonnage">
+                                          
+                                        </p>
+                                </div>                
+                            </div>
+                            <div class="modal-footer">
+                                <input class="btn btn-primary" type="submit" id="submit" name="submit">
+                                <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon" >Non</button>
+                                </form>     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="modal_export" tabindex="-1" data-bs-keyboard="true" 
+                aria-labelledby="ModalCenterTitleExport" aria-hidden="true" >  
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ModalCenterTitleExport"> Importation de données</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <form  method="post" action="/" enctype="multipart/form-data">
+                                            <p>Veuillez choisir les données à exporter</p>
+                                            <p>
+                                                <label for="series">
+                                                    Expoter les séries: <input type="checkbox" id='series' name="series" >  
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label for="episode">
+                                                    Expoter les épisodes: <input type="checkbox" id='episode' name="episode" >  
+                                                </label>
+                                            </p>
+                                            
+                                </div>                
+                            </div>
+                            <div class="modal-footer">
+                                <input class="btn btn-primary" type="submit" id="submit" name="submit">
+                                <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon" >Non</button>
+                                </form>     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    <body>
+        {% block body %}{% endblock %}
         {% block javascripts %}
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
     </body>
 </html>

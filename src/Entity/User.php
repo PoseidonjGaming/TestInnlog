@@ -151,4 +151,12 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function dataJson(){      
+        $data=[
+            'id'=>$this->getId(),
+            'username'=>$this->getUsername()
+        ];
+        return $data;
+    }
 }

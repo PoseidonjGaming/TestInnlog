@@ -47,4 +47,13 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findUnUser($value): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->Where('u.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

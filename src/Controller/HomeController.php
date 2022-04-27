@@ -11,6 +11,7 @@ use App\Entity\Parcour;
 use App\Form\ParcourType;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HomeController extends AbstractController
 {
@@ -27,7 +28,6 @@ class HomeController extends AbstractController
 
     //Permet d'ajouter un user avec mot de passe crypté
     /** 
-     * @IsGranted("ROLE_USER")
      * @Route("/login/AjouterCompte", name="ajouterCompte")
      **/
     public function addCompte(Request $request): Response
@@ -36,6 +36,7 @@ class HomeController extends AbstractController
         $user = new User();
         
         $encoded = password_hash("P@ssw0rd",PASSWORD_BCRYPT);
+        $user->setRoles(["ROLE_USER"]);
         $user->setPassword($encoded);
         $user->setUsername("admin");
 	    $entityManager->persist($user);
@@ -132,6 +133,37 @@ class HomeController extends AbstractController
         $em->flush();
         
         return $this->redirectToRoute('menu');
+    }
+
+    /**
+     * @Route("/menuJSON", name="menuJSON")
+     */
+    public function menuJSON(): JsonResponse
+    {
+        
+        if($_GET['type']=="user"){
+            $items=$this->getDoctrine()->getRepository(User::class)->findAll();
+        }
+        elseif($_GET['type']=='serie'){
+            $items=$this->getDoctrine()->getRepository(Serie::class)->findAll();
+        }
+        elseif($_GET['type']=='acteur'){
+            $items=$this->getDoctrine()->getRepository(Acteur::class)->findAll();
+        }
+        else{
+            $items=$this->getDoctrine()->getRepository(Personnage::class)->findAll();
+        }
+        
+        
+        $data = [];
+        foreach($items as $unItem){
+            $data[]=$unItem->dataJson();
+        }
+        
+        
+        return new JsonResponse($data, Response::HTTP_OK);
+
+       
     }
 
 
