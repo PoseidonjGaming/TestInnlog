@@ -347,6 +347,24 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
         }
         
     })
+     $('#sort_duree').click(function(){
+    
+        
+        if(this.innerHTML=="Default"){
+            trie('Duree',false)
+            this.innerHTML="A...Z"
+        }
+        else if(this.innerHTML=="A...Z"){
+            trie('Duree',true)
+            this.innerHTML="Z...A"
+        }
+        else{
+                    
+            trie('id',false)
+            this.innerHTML="Default"
+        }
+        
+    })
      $('#sort_heure').click(function(){
     
         
