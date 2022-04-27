@@ -185,7 +185,17 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
     }); 
     
    
+    $('#username').keyup(function(e){
+            
+        target=e.target.value
 
+        window.nom=target
+        
+        modif(0,10,1,window.ListeBase)
+        
+        
+
+    })
     
 
 </script>

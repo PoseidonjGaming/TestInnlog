@@ -5,7 +5,7 @@ function verif(e){
     bool=true
     
     if(window.nom!=""){
-        bool=bool && e['nom'].includes(window.nom)
+        bool=bool && e['username'].includes(window.nom)
     }
 
     return bool
