@@ -46,7 +46,7 @@ function filtre(min,max,mod){
         
         
         
-        colButton.children[0].setAttribute('onclick','modifier("'+e['username']+'","'+e['id']+'")')
+        colButton.children[0].setAttribute('onclick','modifier("'+e['username']+'","'+e['DateFormat']+'","'+e['HeureFormat']+'","'+e['id']+'")')
         colButton.children[0].setAttribute('id','modif_"'+e['id'])
         colButton.children[0].setAttribute('name','modif_"'+e['id'])
         colButton.children[1].setAttribute('onclick','supprimer("'+e['id']+'")')
@@ -89,21 +89,21 @@ function filtre(min,max,mod){
         
 }
 
-function modifier(commantaire, date,heure,id){
-        
+function modifier(commantaire, date ,heure,id){
+    console.log(id)
     if(id!=null){
         document.getElementById('parcour_commentaire').value =commantaire;
         document.getElementById('parcour_heureDebut_date').setAttribute('value', date);
         document.getElementById('parcour_heureDebut_time').setAttribute('value', heure);
         document.getElementById('ID').setAttribute('value',id);
-        document.getElementById('exampleModalLongTitle').innerHTML="Modification de l'utilisateur "            
+        document.getElementById('titreModalParcour').innerHTML="Modification du parcour"            
     }
     else{
         document.getElementById('parcour_commentaire').value ="";
         document.getElementById('parcour_heureDebut_date').setAttribute('value', "");
         document.getElementById('parcour_heureDebut_time').setAttribute('value', "");
         document.getElementById('ID').setAttribute('value','');
-        document.getElementById('exampleModalLongTitle').innerHTML="Ajouter un utilisateur"        
+        document.getElementById('titreModalParcour').innerHTML="Ajouter un parcour"        
     }
     
 }
@@ -122,7 +122,7 @@ function supprimer(Id){
 function exporter(){
     
     document.getElementById('submitAutre').setAttribute('class','btn btn-primary');
-    document.getElementById('pModalAutre').innerHTML="Exporter ces séries";
+    document.getElementById('pModalAutre').innerHTML="Exporter ces parcours";
     document.getElementById('supModalLongTitle').innerHTML="Exportation"
    
     document.getElementById('form').action='/export'

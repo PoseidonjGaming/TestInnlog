@@ -91,10 +91,11 @@ function modifier(nom,id){
 
 function supprimer(Id){
     if(Id==null){
+        document.getElementById('titreModaleSortie').innerHTML="Supprimer les utilisateurs"
         document.getElementById('form').action='/supprimer_users';
     }
     else{
-        
+        document.getElementById('titreModaleSortie').innerHTML="Supprimer un utilisateur"
         document.getElementById('form').action='/supprimer_user/'+Id;
     }
 }
@@ -102,7 +103,7 @@ function supprimer(Id){
 function exporter(){
     
     document.getElementById('submitAutre').setAttribute('class','btn btn-primary');
-    document.getElementById('pModalAutre').innerHTML="Exporter ces séries";
+    document.getElementById('pModalAutre').innerHTML="Exporter ces utilisateur";
     document.getElementById('supModalLongTitle').innerHTML="Exportation"
    
     document.getElementById('form').action='/export'

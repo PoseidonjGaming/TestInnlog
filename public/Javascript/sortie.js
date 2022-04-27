@@ -78,23 +78,25 @@ function modifier(nom,id){
     if(id!=null){
         document.getElementById('sortie_form_libelle').setAttribute('value', nom);
         document.getElementById('ID').setAttribute('value',id);
-        document.getElementById('exampleModalLongTitle').innerHTML="Modification de la sortie"            
+        document.getElementById('titreModaleSortie').innerHTML="Modification de la sortie"            
     }
     else{
-        document.getElementById('user_form_username').setAttribute('value','');
+        document.getElementById('sortie_form_libelle').setAttribute('value','');
         document.getElementById('ID').setAttribute('value','');
-        document.getElementById('exampleModalLongTitle').innerHTML="Ajouter une sortie"        
+        document.getElementById('titreModaleSortie').innerHTML="Ajouter une sortie"        
     }
     
 }
 
 
 function supprimer(Id){
+    
     if(Id==null){
+        document.getElementById('titreModaleSortie').innerHTML="Supprimer les sorties"
         document.getElementById('form').action='/supprimer_sorties';
     }
     else{
-        
+        document.getElementById('titreModaleSortie').innerHTML="Supprimer une sortie"
         document.getElementById('form').action='/supprimer_sortie/'+Id;
     }
 }

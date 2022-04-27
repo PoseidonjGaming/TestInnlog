@@ -22,14 +22,12 @@
                         onclick="modifier()"> 
                             Ajouter un parcour
                         </button>
-                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer tous les acteurs</button>
+                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer tous les parcours</button>
                         <button type="button" class="btn btn-secondary"  name="extract" id="extract" data-bs-toggle="modal" data-bs-target="#modal_supprimer"
                         onclick="exporter()"> 
                             Exporter un parcour
                         </button>
-                        <button type="button" class="btn btn-primary"  name="addSModal" id="addSModal" data-bs-toggle="modal" data-bs-target="#modal_acteurs_add"> 
-                            Ajouter plusieurs parcours
-                        </button>
+                       
                     </th>
                     <th style="text-align: center; vertical-align: middle;" width="150px">
                         <label for="checkall">
@@ -114,7 +112,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
     <div class="modal-dialog" >
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle"> Modification de l'acteur </h5>
+                <h5 class="modal-title" id="titreModalParcour"> Modification du parcour </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -162,7 +160,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             success: function(element){
                 
                 window.ListeBase=element
-                window.exception=['id','commentaire','heureDebut']
+                window.exception=['id','commentaire','heureDebut','DateFormat','HeureFormat']
                 
                 document.getElementById('user').value=""
                 document.getElementById('sortie').value=""

@@ -18,16 +18,14 @@
                 <th style="text-align: center; vertical-align: middle;" >
                     <button type="button" class="btn btn-success"  name="ajout" id="ajout" data-bs-toggle="modal" data-bs-target="#modal_modifier"
                     onclick="modifier()"> 
-                        Ajouter un parcour
+                        Ajouter une sortie
                     </button>
-                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer tous les acteurs</button>
+                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer toutes les sorties</button>
                     <button type="button" class="btn btn-secondary"  name="extract" id="extract" data-bs-toggle="modal" data-bs-target="#modal_supprimer"
                     onclick="exporter()"> 
-                        Exporter un parcour
+                        Exporter une sortie
                     </button>
-                    <button type="button" class="btn btn-primary"  name="addSModal" id="addSModal" data-bs-toggle="modal" data-bs-target="#modal_acteurs_add"> 
-                        Ajouter plusieurs parcours
-                    </button>
+                    
                 </th>
                 <th style="text-align: center; vertical-align: middle;" width="150px">
                     <label for="checkall">
@@ -75,7 +73,7 @@
             <div class="modal-dialog" >
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="supModalLongTitle"> Suppression du parcour </h5>
+                        <h5 class="modal-title" id="supModalLongTitle"> Suppression de la sortie </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -100,7 +98,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
     <div class="modal-dialog" >
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle"> Modification de l'acteur </h5>
+                <h5 class="modal-title" id="titreModaleSortie"> Modification de la sortie </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -120,55 +118,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal_acteurs_add" tabindex="-1" data-bs-keyboard="true" 
-    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >  
-        <div class="modal-dialog modal-fullscreen" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle"> Ajout de plusieurs acteurs </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="ajout/acteurs" enctype="multipart/form-data">
-                        <table class="table table-striped table-hover table-bordered" >
-                            <thead class="table-dark">
-                                <tr>
-                                    <th style="text-align: center; vertical-align: middle; width:50%" >Prénom</th>
-                                    <th style="text-align: center; vertical-align: middle;">Nom</th>
-                                </tr>
-                            </thead>
-                            <tbody >
-                                <tr>
-                                    <th style="text-align: center; vertical-align: middle;" colspan="7"> 
-                                        <button type="button" class="btn btn-success"  name="addS" id="addS"> 
-                                            Ajouter un acteur
-                                        </button>
-                                        <button type="button" class="btn btn-danger"  name="supS" id="supS"> 
-                                            Retirer un acteur
-                                        </button>
-                                        <input class="btn btn-primary" type="submit" id="submit" name="submit" value="Valider">
-                                    </th>
-                                </tr>
-                                <input type="hidden" id="maxActeur" name="maxActeur" value="1">
-                                <tr id="row_0">
-                                    <th style="text-align: center; vertical-align: middle;">
-                                        <input type="text" id="inputNom_0" name="inputNom_0">
-                                    </th>
-                                    <th style="text-align: center; vertical-align: middle;">
-                                        <input type="text" id="inputPrenom_0" name="inputPrenom_0">
-                                    </th> 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon" >Non</button>             
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <ul class="pagination justify-content-center" >
     <nav>
         <ul class="pagination" id="pages">
@@ -193,7 +143,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             success: function(element){
                 
                 window.ListeBase=element
-                window.exception=['id','commentaire','heureDebut']
+                window.exception=['id']
                 
                 
                 document.getElementById('sortie').value=""
