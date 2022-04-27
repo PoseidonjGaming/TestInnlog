@@ -78,24 +78,25 @@ function modifier(nom,id){
     if(id!=null){
         document.getElementById('user_form_username').setAttribute('value', nom);
         document.getElementById('ID').setAttribute('value',id);
-        document.getElementById('exampleModalLongTitle').innerHTML="Modification de l'utilisateur "            
+        document.getElementById('titreModaleUser').innerHTML="Modification de l'utilisateur "            
     }
     else{
         document.getElementById('user_form_username').setAttribute('value','');
         document.getElementById('ID').setAttribute('value','');
-        document.getElementById('exampleModalLongTitle').innerHTML="Ajouter un utilisateur"        
+        document.getElementById('titreModaleUser').innerHTML="Ajouter un utilisateur"        
     }
     
 }
 
 
 function supprimer(Id){
+    
     if(Id==null){
-        document.getElementById('titreModaleSortie').innerHTML="Supprimer les utilisateurs"
+        document.getElementById('titreModaleUser').innerHTML="Supprimer les utilisateurs"
         document.getElementById('form').action='/supprimer_users';
     }
     else{
-        document.getElementById('titreModaleSortie').innerHTML="Supprimer un utilisateur"
+        document.getElementById('titreModaleUser').innerHTML="Supprimer un utilisateur"
         document.getElementById('form').action='/supprimer_user/'+Id;
     }
 }

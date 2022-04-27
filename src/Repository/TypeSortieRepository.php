@@ -56,4 +56,13 @@ class TypeSortieRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+    public function findUneSortieByName($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->Where('p.libelle = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

@@ -12,6 +12,7 @@ use App\Entity\TypeSortie;
 use App\Form\ParcourType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Service\Aide;
 
 class HomeController extends AbstractController
 {
@@ -64,17 +65,19 @@ class HomeController extends AbstractController
             $items=$this->getDoctrine()->getRepository(TypeSortie::class)->findAll();
         }
         
-        //$items=$this->getDoctrine()->getRepository(Parcour::class)->findAll();
+        
         $data = [];
         foreach($items as $unItem){
             $data[]=$unItem->dataJson();
         }
         
-        dump($data);
+       
         return new JsonResponse($data, Response::HTTP_OK);
 
        
     }
+
+   
 
      /**
      * @Route("/test", name="test")

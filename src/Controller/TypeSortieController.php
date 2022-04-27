@@ -76,11 +76,12 @@ class TypeSortieController extends AbstractController
     public function supprimer_parcours(): Response
     {
         $tab=array_keys($_GET);
-        $test=[];
+        
         $entityManager=$this->getDoctrine()->getManager();
-        dump($_GET);
+        
+        $exclude=["sortie","checkExport","checkall"];
         foreach($tab as $int){
-            if($int != "checkall"){
+            if(!in_array($int,$exclude)){
                 $parcour=$entityManager->getRepository(TypeSortie::class)->findUneSortie($int);
 
                 $entityManager->remove($parcour);

@@ -54,16 +54,7 @@
                                     
                                 </ul> 
                             </li>
-                            <li class="nav-item">
-                                <a type="button" class="nav-link"  name="import" id="import" data-bs-toggle="modal" data-bs-target="#modal_import"> 
-                                    Importer des données
-                                </a>     
-                            </li>
-                            <li class="nav-item">
-                                <a type="button" class="nav-link dropdown-toggle"  name="export" id="export" data-bs-toggle="modal" data-bs-target="#modal_export"> 
-                                    Expoter des données
-                                </a>     
-                            </li>
+                            
 
                         {% endif %}
                     </ul>
@@ -98,76 +89,6 @@
                         </ul>
                             
                         {% endif %}  
-                    </div>
-                </div>
-                
-                <div class="modal fade" id="modal_import" tabindex="-1" data-bs-keyboard="true" 
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >  
-                    <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ModalCenterTitleExport"> Importation de données</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container-fluid">
-                                    <form  method="post" action="/" enctype="multipart/form-data">
-                                        <p>Veuillez importer un fichier au format Excel(.xlsx) ou doc (.ods)</p>
-                                        <p>Fichier série: <input type="file" id="fichierSerie"  multiple name="fichierSerie[]" />
-                                          
-                                        </p>
-                                            
-                                       
-                                        <p>Fichier épisode: <input type="file" id="fichierEpisode" name="fichierEpisode">
-                                            
-                                            
-                                        </p>
-                                        <p>Fichier acteur: <input type="file" id="fichierActeur" name="fichierActeur">
-                                           
-                                        <p>Fichier personnage: <input type="file" id="fichierPersonnage" name="fichierPersonnage">
-                                          
-                                        </p>
-                                </div>                
-                            </div>
-                            <div class="modal-footer">
-                                <input class="btn btn-primary" type="submit" id="submit" name="submit">
-                                <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon" >Non</button>
-                                </form>     
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="modal_export" tabindex="-1" data-bs-keyboard="true" 
-                aria-labelledby="ModalCenterTitleExport" aria-hidden="true" >  
-                    <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ModalCenterTitleExport"> Importation de données</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container-fluid">
-                                    <form  method="post" action="/" enctype="multipart/form-data">
-                                            <p>Veuillez choisir les données à exporter</p>
-                                            <p>
-                                                <label for="series">
-                                                    Expoter les séries: <input type="checkbox" id='series' name="series" >  
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label for="episode">
-                                                    Expoter les épisodes: <input type="checkbox" id='episode' name="episode" >  
-                                                </label>
-                                            </p>
-                                            
-                                </div>                
-                            </div>
-                            <div class="modal-footer">
-                                <input class="btn btn-primary" type="submit" id="submit" name="submit">
-                                <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon" >Non</button>
-                                </form>     
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

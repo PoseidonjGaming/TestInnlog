@@ -92,11 +92,12 @@ class ParcourController extends AbstractController
     public function supprimer_parcours(): Response
     {
         $tab=array_keys($_GET);
-        $test=[];
+        $exclude=["user","dateD","heureD","distance","checkExport","checkall","sortie"];
         $entityManager=$this->getDoctrine()->getManager();
-        dump($_GET);
+       
         foreach($tab as $int){
-            if($int != "checkall"){
+            
+            if(!in_array($int,$exclude)){
                 $parcour=$entityManager->getRepository(Parcour::class)->findUnParcour($int);
 
                 $entityManager->remove($parcour);
@@ -106,6 +107,7 @@ class ParcourController extends AbstractController
             
         }
         return $this->redirectToRoute('gerer_parcour');
+        
     }
 
    

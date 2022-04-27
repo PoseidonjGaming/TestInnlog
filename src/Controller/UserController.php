@@ -100,11 +100,12 @@ class UserController extends AbstractController
     public function supprimer_users(): Response
     {
         $tab=array_keys($_GET);
-        $test=[];
+        $exclude=["username","checkExport","checkall","type"];
+        dump($_GET);
         $entityManager=$this->getDoctrine()->getManager();
         foreach($tab as $int){
             
-            if($int != "checkall"){
+            if(!in_array($int,$exclude)){
                 $user=$entityManager->getRepository(User::class)->findUnUser($int);
                 $entityManager->remove($user);
                 $entityManager->flush();

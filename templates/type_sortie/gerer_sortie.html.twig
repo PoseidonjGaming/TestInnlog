@@ -10,64 +10,64 @@
 
 <div class="example-wrapper">
     <form  method="get" id="form">
-    <table class="table table-striped table-hover table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th style="text-align: center; vertical-align: middle;">Nom <a class="link-primary" id="sort_sortie">Default</a></th>
-                
-                <th style="text-align: center; vertical-align: middle;" >
-                    <button type="button" class="btn btn-success"  name="ajout" id="ajout" data-bs-toggle="modal" data-bs-target="#modal_modifier"
-                    onclick="modifier()"> 
-                        Ajouter une sortie
-                    </button>
-                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer toutes les sorties</button>
-                    <button type="button" class="btn btn-secondary"  name="extract" id="extract" data-bs-toggle="modal" data-bs-target="#modal_supprimer"
-                    onclick="exporter()"> 
-                        Exporter une sortie
-                    </button>
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th style="text-align: center; vertical-align: middle;">Nom <a class="link-primary" id="sort_sortie">Default</a></th>
                     
+                    <th style="text-align: center; vertical-align: middle;" >
+                        <button type="button" class="btn btn-success"  name="ajout" id="ajout" data-bs-toggle="modal" data-bs-target="#modal_modifier"
+                        onclick="modifier()"> 
+                            Ajouter une sortie
+                        </button>
+                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer toutes les sorties</button>
+                        <button type="button" class="btn btn-secondary"  name="extract" id="extract" data-bs-toggle="modal" data-bs-target="#modal_supprimer"
+                        onclick="exporter()"> 
+                            Exporter une sortie
+                        </button>
+                        
+                    </th>
+                    <th style="text-align: center; vertical-align: middle;" width="150px">
+                        <label for="checkall">
+                            <input type="checkbox" id='checkall' name="checkall" > Tout cocher
+                        </label>      
+                    </th>
+                </tr>
+                <tr>
+                <th style="text-align: center; vertical-align: middle;">
+                    <input type="text" id="sortie" name="sortie">
                 </th>
-                <th style="text-align: center; vertical-align: middle;" width="150px">
-                    <label for="checkall">
-                        <input type="checkbox" id='checkall' name="checkall" > Tout cocher
-                    </label>      
+                
+                <th style="text-align: center; vertical-align: middle;">
+                    
+                </th> 
+                <th style="text-align: center; vertical-align: middle;">
+                    <label class="switch">
+                        <input type="checkbox" id="checkExport" name="checkExport" onclick="modExport()">
+                        <span class="slider round"></span>
+                    </label>
                 </th>
             </tr>
-            <tr>
-            <th style="text-align: center; vertical-align: middle;">
-                <input type="text" id="sortie" name="sortie">
-            </th>
-            
-            <th style="text-align: center; vertical-align: middle;">
-                
-            </th> 
-            <th style="text-align: center; vertical-align: middle;">
-                <label class="switch">
-                    <input type="checkbox" id="checkExport" name="checkExport" onclick="modExport()">
-                    <span class="slider round"></span>
-                </label>
-            </th>
-        </tr>
-        </thead>
-        <tbody id="sorties">  
-        {% for uneSortie in sorties %}
-            <tr>
-                <td style="text-align: center; vertical-align: middle;">{{uneSortie.libelle}}</td>
-                <td style="text-align: center; vertical-align: middle;">
-                    <button type="button" class="btn btn-warning"  name="{{uneSortie.id}}" id="{{uneSortie.id}}" data-bs-toggle="modal" data-bs-target="#modal_modifier" 
-                    onclick="modifier('{{uneSortie.libelle}}','{{uneSortie.id}}')"> 
-                        Modifier
-                    </button>
-                    <button type="button" class="btn btn-danger"  name="sup" id="sup" data-bs-toggle="modal" data-bs-target="#modal_supprimer" onclick="supprimer('{{uneSortie.id}}')">Supprimer</button>
-                    
-                </td>
-                <td style="text-align: center; vertical-align: middle;">
-                    <input type="checkbox" id='{{uneSortie.id}}' name="{{uneSortie.id}}">
-                </td>
-            </tr>
-        {% endfor %}   
-        </tbody>
-    </table>
+            </thead>
+            <tbody id="sorties">  
+            {% for uneSortie in sorties %}
+                <tr>
+                    <td style="text-align: center; vertical-align: middle;">{{uneSortie.libelle}}</td>
+                    <td style="text-align: center; vertical-align: middle;">
+                        <button type="button" class="btn btn-warning"  name="{{uneSortie.id}}" id="{{uneSortie.id}}" data-bs-toggle="modal" data-bs-target="#modal_modifier" 
+                        onclick="modifier('{{uneSortie.libelle}}','{{uneSortie.id}}')"> 
+                            Modifier
+                        </button>
+                        <button type="button" class="btn btn-danger"  name="sup" id="sup" data-bs-toggle="modal" data-bs-target="#modal_supprimer" onclick="supprimer('{{uneSortie.id}}')">Supprimer</button>
+                        
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;">
+                        <input type="checkbox" id='{{uneSortie.id}}' name="{{uneSortie.id}}">
+                    </td>
+                </tr>
+            {% endfor %}   
+            </tbody>
+        </table>
     
         <div class="modal fade" id="modal_supprimer" tabindex="-1" data-bs-keyboard="true" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             <div class="modal-dialog" >
