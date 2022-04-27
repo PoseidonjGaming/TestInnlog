@@ -14,7 +14,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ParcourController extends AbstractController
 {
-  
+    /**
+     * @Route("/menu", name="menu")
+     */
+    public function menu(): Response
+    {
+        $parcours=$this->getDoctrine()->getRepository(Parcour::class)->findAll();
+        return $this->render('menu.html.twig', [
+            'parcours' => $parcours,
+            
+          
+        ]);
+    }
+
     /**
      * @IsGranted("ROLE_super_admin")
      * @Route("/parcour", name="gerer_parcour")
@@ -25,23 +37,24 @@ class ParcourController extends AbstractController
         $rep=$this->getDoctrine()->getRepository(Parcour::class);  
         $parcours=$rep->findAll();
 
-        $user=new Parcour();
+        $parcour=new Parcour();
         if(isset($_POST['ID'])){
             $searchParcour=$rep->findUnParcour($_POST['ID']);
             if($searchParcour!=null){
-                $user=$searchParcour;
+                $parcour=$searchParcour;
             }
         }
         
-        $form = $this->createForm(ParcourType::class,$user);
+        $form = $this->createForm(ParcourType::class,$parcour);
         $form->handleRequest($request);
         $error=' ';
 
         if ($form->isSubmitted() && $form->isValid()) {
 
                 
+                $parcour->setDistance(intval($_POST['distance']));
                 $manager = $this->getDoctrine()->getManager();
-                $manager->persist($user);
+                $manager->persist($parcour);
                 $manager->flush();
             
             return $this->redirectToRoute('gerer_parcour');
@@ -50,7 +63,7 @@ class ParcourController extends AbstractController
 
         return $this->render('parcour/gerer_parcour.html.twig', [
             'parcours' => $parcours,
-            'formUser'=>$form->createView(),
+            'formParcour'=>$form->createView(),
             'error'=>$error
           
         ]);
@@ -60,16 +73,39 @@ class ParcourController extends AbstractController
     //Permet de supprimer un parcour
     /**
      * @IsGranted("ROLE_super_admin")
-     * @Route("/supprparcour/{id}", name="supprparcour")
+     * @Route("/supprimer_parcour/{id}", name="supprimer_parcour")
      */
-    public function supprparcour(Request $request, $id): Response
+    public function supprimer_parcour(Request $request, $id): Response
     {
         $em= $this->getDoctrine()->getManager();
-        $parcour= $this->getDoctrine()->getRepository(Parcour::class)->findOneById($id);
+        $parcour= $this->getDoctrine()->getRepository(Parcour::class)->findUnParcour($id);
         $em->remove($parcour);
         $em->flush();
         
-        return $this->redirectToRoute('menu');
+        return $this->redirectToRoute('gerer_parcour');
+    }
+
+    /**
+     * @IsGranted("ROLE_super_admin")
+     * @Route("/supprimer_parcours", name="supprimer_parcours")
+     */
+    public function supprimer_parcours(): Response
+    {
+        $tab=array_keys($_GET);
+        $test=[];
+        $entityManager=$this->getDoctrine()->getManager();
+        dump($_GET);
+        foreach($tab as $int){
+            if($int != "checkall"){
+                $parcour=$entityManager->getRepository(Parcour::class)->findUnParcour($int);
+
+                $entityManager->remove($parcour);
+                $entityManager->flush();
+            }
+
+            
+        }
+        return $this->redirectToRoute('gerer_parcour');
     }
 
    

@@ -58,7 +58,7 @@ class ParcourRepository extends ServiceEntityRepository
         ;
     }
     //Permet de trouver un parcour  en fonction de son id (modification et suppression)
-    public function findOneById($value)
+    public function findUnParcour($value)
     {
         return $this->createQueryBuilder('p')
             ->Where('p.id = :val')

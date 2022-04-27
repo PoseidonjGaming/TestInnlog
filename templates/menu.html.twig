@@ -6,8 +6,8 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     .font { font-size:19px}
 </style>
-<h1>Liste des parcours</h1>
-<a class="btn btn-success" href="{{ path('addparcour')}}" role="button">Ajouter</a>
+<h2>Liste des parcours</h2>
+
 <div class="row">
     {% for unParcour in parcours %}
         <div class="col mb-3">
@@ -19,10 +19,7 @@
                                 <p>{{unParcour.user.username}}</p>
                                 {% set vitesse = unParcour.distance  / unParcour.duree * 60 %}
                                 <p> vitesse moyenne: {{vitesse|round(2,'floor')}} km/h</p>
-                                <p> Commentaire: {{unParcour.commentaire}} </p>
-                                <a class="btn btn-warning" href="{{ path('modifparcour', {'id': unParcour.id }) }}" role="button">Modifier</a>
-                                <a class="btn btn-danger" href="{{ path('supprparcour', {'id': unParcour.id }) }}" role="button">Supprimer</a>
-                                
+                                <p> Commentaire: {{unParcour.commentaire}} </p>                               
                             </div>
                         </div>
                     </div>

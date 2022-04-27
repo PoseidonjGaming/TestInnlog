@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Acteurs{% endblock %}
+{% block title %}Liste des Parcours{% endblock %}
 
 {% block body %}
 <style>
@@ -9,23 +9,26 @@
 </style>
 
 <div class="example-wrapper">
+    <form  method="get" id="form">
     <table class="table table-striped table-hover table-bordered">
         <thead class="table-dark">
             <tr>
-                <th style="text-align: center; vertical-align: middle; " >Prénom <a class="link-primary" id="sort_prenom">Default</a></th>
-                <th style="text-align: center; vertical-align: middle;">Nom <a class="link-primary" id="sort_nom">Default</a></th>
+                <th style="text-align: center; vertical-align: middle;">Utilisateur <a class="link-primary" id="sort_user">Default</a></th>
+                <th style="text-align: center; vertical-align: middle;">Type de sortie <a class="link-primary" id="sort_sortie">Default</a></th>
+                <th style="text-align: center; vertical-align: middle;">Heure de début <a class="link-primary" id="sort_heure">Default</a></th>
+                <th style="text-align: center; vertical-align: middle;">Distance <a class="link-primary" id="sort_distance">Default</a></th>
                 <th style="text-align: center; vertical-align: middle;" >
                     <button type="button" class="btn btn-success"  name="ajout" id="ajout" data-bs-toggle="modal" data-bs-target="#modal_modifier"
                     onclick="modifier()"> 
-                        Ajouter un utilisateur
+                        Ajouter un parcour
                     </button>
                     <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer tous les acteurs</button>
                     <button type="button" class="btn btn-secondary"  name="extract" id="extract" data-bs-toggle="modal" data-bs-target="#modal_supprimer"
                     onclick="exporter()"> 
-                        Exporter un utilisateur
+                        Exporter un parcour
                     </button>
                     <button type="button" class="btn btn-primary"  name="addSModal" id="addSModal" data-bs-toggle="modal" data-bs-target="#modal_acteurs_add"> 
-                        Ajouter plusieurs utilisateur
+                        Ajouter plusieurs parcours
                     </button>
                 </th>
                 <th style="text-align: center; vertical-align: middle;" width="150px">
@@ -36,10 +39,17 @@
             </tr>
             <tr>
             <th style="text-align: center; vertical-align: middle;">
-                <input type="text" id="prenom" name="prenom">
+                <input type="text" id="user" name="user">
             </th>
             <th style="text-align: center; vertical-align: middle;">
-                <input type="text" id="nom" name="nom">
+                <input type="text" id="sortie" name="sortie">
+            </th> 
+            <th style="text-align: center; vertical-align: middle;">
+                <input type="date" id="dateD" name="dateD">
+                <input type="time" id="heureD" name="heureD">
+            </th> 
+            <th style="text-align: center; vertical-align: middle;">
+                <input type="number" id="distance" name="distance" min="0">
             </th> 
             <th style="text-align: center; vertical-align: middle;">
                 
@@ -52,42 +62,44 @@
             </th>
         </tr>
         </thead>
-        <tbody id="acteurs">  
-        {% for unActeur in acteurs %}
+        <tbody id="parcours">  
+        {% for unParcour in parcours %}
             <tr>
-                <td style="text-align: center; vertical-align: middle;">{{unActeur.prenom}}</td>
-                <td style="text-align: center; vertical-align: middle;"> {{unActeur.nom}}</td> 
+                <td style="text-align: center; vertical-align: middle;">{{unParcour.user.username}}</td>
+                <td style="text-align: center; vertical-align: middle;">{{unParcour.TypeSortie.libelle}}</td>
+                <td style="text-align: center; vertical-align: middle;">{{unParcour.heureDebut|date("H:i")}}</td>
+                <td style="text-align: center; vertical-align: middle;">{{unParcour.distance}}</td>
                 <td style="text-align: center; vertical-align: middle;">
-                    <button type="button" class="btn btn-warning"  name="{{unActeur.id}}" id="{{unActeur.id}}" data-bs-toggle="modal" data-bs-target="#modal_modifier" 
-                    onclick="modifier('{{unActeur.id}}','{{unActeur.nom}}','{{unActeur.prenom}}')"> 
+                    <button type="button" class="btn btn-warning"  name="{{unParcour.id}}" id="{{unParcour.id}}" data-bs-toggle="modal" data-bs-target="#modal_modifier" 
+                    onclick="modifier('{{unParcour.commentaire}}','{{unParcour.heureDebut|date("Y-m-d")}}','{{unParcour.heureDebut|date("H:i")}}','{{unParcour.id}}')"> 
                         Modifier
                     </button>
-                    <button type="button" class="btn btn-danger"  name="sup" id="sup" data-bs-toggle="modal" data-bs-target="#modal_supprimer" onclick="supprimer('{{unActeur.id}}')">Supprimer</button>
-                    <a type="button" class="btn btn-primary" href="{{path('gerer_personnage',{'id': unActeur.id})}}">Gerer les personnages</a>
+                    <button type="button" class="btn btn-danger"  name="sup" id="sup" data-bs-toggle="modal" data-bs-target="#modal_supprimer" onclick="supprimer('{{unParcour.id}}')">Supprimer</button>
+                    
                 </td>
                 <td style="text-align: center; vertical-align: middle;">
-                    <input type="checkbox" id='{{unActeur.id}}' name="{{unActeur.id}}">
+                    <input type="checkbox" id='{{unParcour.id}}' name="{{unParcour.id}}">
                 </td>
             </tr>
         {% endfor %}   
         </tbody>
     </table>
-    <form  method="get" id="form">
+    
         <div class="modal fade" id="modal_supprimer" tabindex="-1" data-bs-keyboard="true" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             <div class="modal-dialog" >
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="supModalLongTitle"> Suppression de la série </h5>
+                        <h5 class="modal-title" id="supModalLongTitle"> Suppression du parcour </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <p id="pModalAutre">Êtes-vous sur de vouloir supprimer cet acteur ?</p>
+                            <p id="pModalAutre">Êtes-vous sur de vouloir supprimer ce parcour ?</p>
                         </div>     
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon">Non</button>
-                        <input type="hidden" class="btn btn-danger delete"  id="type" name="type" value="acteur">
+                        
                         <input type="submit" class="btn btn-danger delete"  id="submitAutre" value="Oui">            
                     </div>
                 </div>
@@ -107,17 +119,20 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    {{form_start(formActeur)}}
-                        <p>Prénom: {{form_widget(formActeur.prenom)}}</p>
-                        <p>Nom: {{form_widget(formActeur.nom)}}</p>
+                    {{form_start(formParcour)}}
+                        <p>Utilisateur: {{form_widget(formParcour.user)}}</p>
+                        <p>Type de sortie: {{form_widget(formParcour.TypeSortie)}}</p>
+                        <p>Commentaire: {{form_widget(formParcour.commentaire)}}</p>
+                        <p>Heure de début: {{form_widget(formParcour.heureDebut)}}</p>
+                        <p>Distance: <input type="number" id="distance" name="distance" min="0" step=".1"></p>
                         <input id="ID" name="ID" type="hidden"> 
-                        {{form_widget(formActeur.reset)}}      
+                        {{form_widget(formParcour.reset)}}      
                 </div>                
             </div>
             <div class="modal-footer">
-                {{form_widget(formActeur.Valider)}}
+                {{form_widget(formParcour.Valider)}}
                 <a type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon" >Non</a>
-            {{form_end(formActeur)}}             
+            {{form_end(formParcour)}}             
             </div>
         </div>
     </div>
@@ -182,7 +197,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
 
 
 {% block javascripts %}
-<script src="/Javascript/acteur.js"></script>
+<script src="/Javascript/parcour.js"></script>
 <script src="/Javascript/gestion.js"></script>
 <script>
     $(document).ready(function(){   
@@ -195,10 +210,13 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             success: function(element){
                 
                 window.ListeBase=element
-                window.exception=['id']
+                window.exception=['id','commentaire','heureDebut']
                 
-                document.getElementById('prenom').value=""
-                document.getElementById('nom').value=""
+                document.getElementById('user').value=""
+                document.getElementById('sortie').value=""
+                document.getElementById('distance').value=""
+                document.getElementById('heureD').value=""
+                document.getElementById('dateD').value=""
                 
                
                 
@@ -206,17 +224,21 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                 document.getElementById('checkall').disabled=true
                 document.getElementById('checkall').checked=false
 
-                window.nom=""
-                window.prenom=""
+                window.user=""
+                window.heureDebutTime=""
+                window.heureDebutDate=""
+                window.distance=""
+                window.sortie=""
                
                 
                 
                 
-                window.tbody=document.getElementById('acteurs')
-                window.buttonsRow=tbody.children[0].children[2]
+                window.tbody=document.getElementById('parcours')
+                window.buttonsRow=tbody.children[0].children[4]
                
                 window.boolExport=false
                 trie('id',false)
+
                 
             }
         })
@@ -224,8 +246,8 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
     $('#checkall').change(function () {
         if(this.checked){
             Array.from(window.tbody.children).forEach(function(e){
-                e.children[3].children[0].checked=true
-                window.listeExport.push(e.children[3].children[0].getAttribute('id'))
+                e.children[5].children[0].checked=true
+                window.listeExport.push(e.children[5].children[0].getAttribute('id'))
             
             })
             
@@ -236,9 +258,9 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                
 
                 
-                if(window.listeExport.includes(e.children[3].children[0].getAttribute('id'))&&e.children[3].children[0].checked){
-                    window.listeExport.splice(window.listeExport.indexOf(e.children[3].children[0].getAttribute('id')),1)
-                    e.children[3].children[0].checked=false
+                if(window.listeExport.includes(e.children[5].children[0].getAttribute('id'))&&e.children[5].children[0].checked){
+                    window.listeExport.splice(window.listeExport.indexOf(e.children[5].children[0].getAttribute('id')),1)
+                    e.children[5].children[0].checked=false
                 }
                 
                 
@@ -253,73 +275,70 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
 
    
 
-    $('#addS').click(function(){
-     
-        
-        inputMax=document.getElementById('maxActeur')
-        nbActeur=parseInt(inputMax.getAttribute('value'))
-        inputMax.setAttribute('value',nbActeur+1)
-        balise=document.getElementById('acteurS')
-        row=balise.children[2].cloneNode(true)
-        row.setAttribute('id',"row_"+nbActeur)
-
-        colPrenom=row.children[0]
-        inputPrenom=colPrenom.children[0]
-        inputPrenom.setAttribute('id',"inputPrenom_"+nbActeur)
-        inputPrenom.setAttribute('name',"inputPrenom_"+nbActeur)
-        inputPrenom.value=""
-
-        colNom=row.children[1]
-        inputNom=colNom.children[0]
-        inputNom.setAttribute('id',"inputNom_"+nbActeur)
-        inputNom.setAttribute('name',"inputNom_"+nbActeur)
-        inputNom.value=""
-       
-       
-      
-        balise.appendChild(row)
-    });
-    $('#supS').click(function(){
-
-        maxActeur=document.getElementById('maxActeur')
-        maxActeurInt=parseInt(maxActeur.getAttribute('value'))
-        maxActeurInt=maxActeurInt-1
-        baliseRow=document.getElementById('row_'+maxActeurInt.toString())
-        
-       
-       
-        if(baliseRow.getAttribute('id')!='row_0'){
-            baliseRow.remove()
-            maxActeur.setAttribute('value',maxActeurInt)
-        }
-    })
-
-    $('#prenom').keyup(function(e){
+   
+    
+    $('#user').keyup(function(e){
             
         target=e.target.value
 
-        window.prenom=target
+        window.user=target
         
         modif(0,10,1,window.ListeBase)
         
         
 
     })
-    $('#nom').keyup(function(e){
-            
+    $('#sortie').keyup(function(e){
+        
         target=e.target.value
-        window.nom=target
+        window.sortie=target
         modif(0,10,1,window.ListeBase)
     })
-    $('#sort_nom').click(function(){
+
+    $('#dateD').change(function(e){
+            
+        target=e.target.value
+        date=new Date(target)
+        window.heureDebutDate=date
+        subDate=target.split('-')
+        window.date=subDate[2]+'/'+subDate[1]+'/'+subDate[0]
+        
+        
+
+        modif(0,10,1,window.ListeBase)
+
+    })
+    $('#distance').change(function(e){
+            
+        target=e.target.value
+        window.distance=target
+       
+        modif(0,10,1,window.ListeBase)
+
+    })
+    /*$('#heureD').change(function(e){
+            
+        target=e.target.value
+        date=new Date('',target+":00")
+        window.heureDebutTime=date
+        console.log(date)
+        subDate=target.split('-')
+        window.date=subDate[2]+'/'+subDate[1]+'/'+subDate[0]
+        
+        
+
+        modif(0,10,1,window.ListeBase)
+
+    })*/
+    $('#sort_user').click(function(){
     
         
         if(this.innerHTML=="Default"){
-            trie('nom',false)
+            trie('username',false)
             this.innerHTML="A...Z"
         }
         else if(this.innerHTML=="A...Z"){
-            trie('nom',true)
+            trie('username',true)
             this.innerHTML="Z...A"
         }
         else{
@@ -329,15 +348,33 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
         }
         
     })
-    $('#sort_prenom').click(function(){
+    $('#sort_sortie').click(function(){
     
         
         if(this.innerHTML=="Default"){
-            trie('prenom',false)
+            trie('sortie',false)
             this.innerHTML="A...Z"
         }
         else if(this.innerHTML=="A...Z"){
-            trie('prenom',true)
+            trie('sortie',true)
+            this.innerHTML="Z...A"
+        }
+        else{
+                    
+            trie('id',false)
+            this.innerHTML="Default"
+        }
+        
+    })
+    $('#sort_heure').click(function(){
+    
+        
+        if(this.innerHTML=="Default"){
+            trie('heureDebut',false)
+            this.innerHTML="A...Z"
+        }
+        else if(this.innerHTML=="A...Z"){
+            trie('heureDebut',true)
             this.innerHTML="Z...A"
         }
         else{

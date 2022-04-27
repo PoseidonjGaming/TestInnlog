@@ -53,7 +53,7 @@ class HomeController extends AbstractController
     public function menuJSON(): JsonResponse
     {
         
-        /*if($_GET['type']=="user"){
+        if($_GET['type']=="user"){
             $items=$this->getDoctrine()->getRepository(User::class)->findAll();
         }
         elseif($_GET['type']=='parcour'){
@@ -64,9 +64,9 @@ class HomeController extends AbstractController
         }
         else{
             $items=$this->getDoctrine()->getRepository(Personnage::class)->findAll();
-        }*/
+        }
         
-        $items=$this->getDoctrine()->getRepository(Parcour::class)->findAll();
+        //$items=$this->getDoctrine()->getRepository(Parcour::class)->findAll();
         $data = [];
         foreach($items as $unItem){
             $data[]=$unItem->dataJson();

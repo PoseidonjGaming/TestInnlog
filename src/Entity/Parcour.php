@@ -129,8 +129,8 @@ class Parcour
     public function dataJson(){      
         $data=[
             'id'=>$this->getId(),
-            'user'=>$this->getUser()->getUsername(),
-            'Sortie'=>$this->getTypeSortie()->getLibelle(),
+            'username'=>$this->getUser()->getUsername(),
+            'sortie'=>$this->getTypeSortie()->getLibelle(),
             "Duree"=>$this->getDuree(),
             "commentaire"=>$this->getCommentaire(),
             'heureDebut'=>$this->getHeureDebut(),

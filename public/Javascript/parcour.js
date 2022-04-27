@@ -1,13 +1,29 @@
 buttonsRow=""
-nom=""
+user=""
+sortie=""
+heureDebutTime=""
+heureDebutDate=""
+distance=""
+
 
 function verif(e){
     bool=true
     
-    if(window.nom!=""){
-        bool=bool && e['username'].includes(window.nom)
+    if(window.user!==""){
+        bool=bool && e['username'].includes(window.user)
     }
-
+    if(window.sortie!==""){
+        bool=bool && e['sortie'].includes(window.sortie)
+    }
+    if(window.distance!==""){
+        bool=bool && e['distance']==window.distance
+    }
+    
+    if(window.heureDebutTime!=="" || window.heureDebutDate!==''){
+        
+        temp=new Date(e['heureDebut']['date'])
+        bool=bool && (temp.getTime()==window.heureDebutTime.getTime() ||temp.getTime()==window.heureDebutDate.getTime())
+    }
     return bool
     
     
@@ -29,14 +45,14 @@ function filtre(min,max,mod){
        
         
         
-      
+        
         colButton.children[0].setAttribute('onclick','modifier("'+e['username']+'","'+e['id']+'")')
         colButton.children[0].setAttribute('id','modif_"'+e['id'])
         colButton.children[0].setAttribute('name','modif_"'+e['id'])
         colButton.children[1].setAttribute('onclick','supprimer("'+e['id']+'")')
         colButton.children[1].setAttribute('id','sup_"'+e['id'])
         colButton.children[1].setAttribute('name','sup_"'+e['id'])
-        
+        colButton.children[1].setAttribute('href','gerer_episode/'+e['id'])
 
         row.appendChild(colButton)
         if(window.boolExport){
@@ -73,15 +89,19 @@ function filtre(min,max,mod){
         
 }
 
-function modifier(nom,id){
+function modifier(commantaire, date,heure,id){
         
     if(id!=null){
-        document.getElementById('user_form_username').setAttribute('value', nom);
+        document.getElementById('parcour_commentaire').value =commantaire;
+        document.getElementById('parcour_heureDebut_date').setAttribute('value', date);
+        document.getElementById('parcour_heureDebut_time').setAttribute('value', heure);
         document.getElementById('ID').setAttribute('value',id);
         document.getElementById('exampleModalLongTitle').innerHTML="Modification de l'utilisateur "            
     }
     else{
-        document.getElementById('user_form_username').setAttribute('value','');
+        document.getElementById('parcour_commentaire').value ="";
+        document.getElementById('parcour_heureDebut_date').setAttribute('value', "");
+        document.getElementById('parcour_heureDebut_time').setAttribute('value', "");
         document.getElementById('ID').setAttribute('value','');
         document.getElementById('exampleModalLongTitle').innerHTML="Ajouter un utilisateur"        
     }
@@ -91,11 +111,11 @@ function modifier(nom,id){
 
 function supprimer(Id){
     if(Id==null){
-        document.getElementById('form').action='/supprimer_users';
+        document.getElementById('form').action='/supprimer_parcours';
     }
     else{
         
-        document.getElementById('form').action='/supprimer_user/'+Id;
+        document.getElementById('form').action='/supprimer_parcour/'+Id;
     }
 }
 

@@ -80,7 +80,22 @@ class UserController extends AbstractController
     
     /**
      * @IsGranted("ROLE_super_admin")
-     * @Route("/supprimer_users", name="supprimer_user")
+     * @Route("/supprimer_user/{id}", name="supprimer_user")
+     */
+    public function supprimer_user($id): Response
+    {
+        $entityManager=$this->getDoctrine()->getManager();
+        $user=$entityManager->getRepository(User::class)->findUnUser($id);
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('gerer_user');
+    }
+
+    /**
+     * @IsGranted("ROLE_super_admin")
+     * @Route("/supprimer_users", name="supprimer_users")
      */
     public function supprimer_users(): Response
     {
@@ -97,21 +112,6 @@ class UserController extends AbstractController
 
             
         }
-        return $this->redirectToRoute('gerer_user');
-    }
-
-    /**
-     * @IsGranted("ROLE_super_admin")
-     * @Route("/supprimer_user/{id}", name="supprimer_user")
-     */
-    public function supprimer_user($id): Response
-    {
-        $entityManager=$this->getDoctrine()->getManager();
-        $user=$entityManager->getRepository(User::class)->findUnUser($id);
-
-        $entityManager->remove($user);
-        $entityManager->flush();
-
         return $this->redirectToRoute('gerer_user');
     }
 

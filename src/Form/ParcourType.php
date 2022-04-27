@@ -12,6 +12,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Doctrine\ORM\EntityRepository;
 
 class ParcourType extends AbstractType
 {
@@ -23,12 +26,42 @@ class ParcourType extends AbstractType
                'time_widget'=>'single_text',
             ])
             ->add('commentaire', TextAreaType::class,['attr'=> ['cols'=> 45, 'rows'=> 7 ]])
-            ->add('distance')
-            ->add('TypeSortie', EntityType::class, [
-                'class'=> TypeSortie::class,
-                'choice_label'=>'libelle',
-                'choice_value'=>'id'
+            
+            ->add('TypeSortie', EntityType::class, [            
+                'class' => TypeSortie::class,            
+                'choice_label' => 'libelle',
+                'choice_value' => 'id',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.libelle', 'ASC');},
+                'multiple' => false,
+                'expanded' => false,
+                'mapped'=>true,
+                'required'=>true,
+                'attr' => 
+                    [
+                        'class' =>'form-select'
+                    ]
+                
             ])
+            ->add('user', EntityType::class, [            
+                'class' => User::class,            
+                'choice_label' => 'username',
+                'choice_value' => 'id',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.username', 'ASC');},
+                'multiple' => false,
+                'expanded' => false,
+                'mapped'=>true,
+                'required'=>true,
+                'attr' => 
+                    [
+                        'class' =>'form-select'
+                    ]
+                
+            ])
+            ->add('reset',ResetType::class,['attr' => ['class' =>'btn btn-primary']])
             ->add('Valider', SubmitType::class,['attr' => ['class' =>'btn btn-primary']])
         ;
     }
