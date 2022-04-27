@@ -90,7 +90,9 @@ function modifier(nom,id){
 
 
 function supprimer(Id){
-    
+    document.getElementById('submitAutre').setAttribute('class','btn btn-danger');
+    document.getElementById('pModalAutre').innerHTML="Supprimer ces utilisateur";
+    document.getElementById('supModalLongTitle').innerHTML="Suppression"
     if(Id==null){
         document.getElementById('titreModaleUser').innerHTML="Supprimer les utilisateurs"
         document.getElementById('form').action='/supprimer_users';

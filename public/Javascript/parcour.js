@@ -110,6 +110,9 @@ function modifier(commantaire, date ,heure,id){
 
 
 function supprimer(Id){
+    document.getElementById('submitAutre').setAttribute('class','btn btn-danger');
+    document.getElementById('pModalAutre').innerHTML="Supprimer ces parcours";
+    document.getElementById('supModalLongTitle').innerHTML="Suppression"
     if(Id==null){
         document.getElementById('form').action='/supprimer_parcours';
     }

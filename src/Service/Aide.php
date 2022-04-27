@@ -239,7 +239,7 @@ class Aide extends AbstractController{
             $tab=explode(',',$get['listeExport']);
             $parcours=[];
             foreach($tab as $int){
-                $parcour=$entityManager->getRepository(Parcour::class)->findUneSerie($int);
+                $parcour=$entityManager->getRepository(Parcour::class)->findUnParcour($int);
                 array_push($parcours,$parcour);
             }
         }
@@ -286,7 +286,7 @@ class Aide extends AbstractController{
             $sorties=[];
             foreach($tab as $int){
                 $sortie=$entityManager->getRepository(TypeSortie::class)->findUneSortie($int);
-                array_push($episodes,$episode);
+                array_push($sorties,$sortie);
             }
         }
         else{
@@ -326,7 +326,7 @@ class Aide extends AbstractController{
             $users=[];
             foreach($tab as $int){
                 $user=$entityManager->getRepository(User::class)->findUnUser($int);
-                array_push($personnages,$user);
+                array_push($users,$user);
             }
         }
         else{

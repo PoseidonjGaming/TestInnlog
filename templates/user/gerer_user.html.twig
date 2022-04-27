@@ -21,6 +21,10 @@
                             Ajouter un utilisateur
                         </button>
                         <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer tous les utilisateur</button>
+                         <button type="button" class="btn btn-secondary"  name="extract" id="extract" data-bs-toggle="modal" data-bs-target="#modal_supprimer"
+                        onclick="exporter()"> 
+                            Exporter un utilisateur
+                        </button>
                 </th>
                 <th style="text-align: center; vertical-align: middle;" >
                     <label for="checkall">
@@ -65,19 +69,18 @@
             <div class="modal-dialog" >
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="titreModaleUser"> Modification de la série </h5>
+                        <h5 class="modal-title" id="supModalLongTitle"> Modification de la série </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <p>Êtes-vous sur de vouloir supprimer cet utilisateur ?</p>
+                            <p id="pModalAutre">Êtes-vous sur de vouloir supprimer cet utilisateur ?</p>
                         </div>     
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon">Non</button>
                         <input type="submit" class="btn btn-danger delete"  id="submitAutre" value="Oui">
                         <input type="hidden" class="btn btn-danger delete"  id="type" name="type" value="user">
-                        
                     </div>
                 </div>
             </div>

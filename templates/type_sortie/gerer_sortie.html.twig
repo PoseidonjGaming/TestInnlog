@@ -83,7 +83,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalNon">Non</button>
-                        
+                        <input type="hidden" class="btn btn-danger delete"  id="type" name="type" value="sortie">
                         <input type="submit" class="btn btn-danger delete"  id="submitAutre" value="Oui">            
                     </div>
                 </div>
@@ -104,7 +104,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
             <div class="modal-body">
                 <div class="container-fluid">
                     {{form_start(formSortie)}}
-                        <p>Utilisateur: {{form_widget(formSortie.libelle)}}</p>
+                        <p>Libellé: {{form_widget(formSortie.libelle)}}</p>
                       
                         {{form_widget(formSortie.reset)}}      
                 </div>                

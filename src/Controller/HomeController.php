@@ -110,6 +110,7 @@ class HomeController extends AbstractController
            $aide->export_sortie($_GET);
         }
         if(isset($_POST['usersExport']) || (isset($_GET['type'])&&$_GET['type']=='user')){
+            dump($_GET);
            $aide->export_user($_GET);
         }
         
