@@ -52,7 +52,7 @@ class ParcourController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
                 
-                $parcour->setDistance(intval($_POST['distance']));
+                $parcour->setDistance($_POST['distance']);
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($parcour);
                 $manager->flush();

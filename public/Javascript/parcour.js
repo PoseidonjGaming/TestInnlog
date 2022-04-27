@@ -16,7 +16,7 @@ function verif(e){
         bool=bool && e['sortie'].includes(window.sortie)
     }
     if(window.distance!==""){
-        bool=bool && e['distance']==window.distance
+        bool=bool && e['distance']>=window.distance
     }
     
     if(window.heureDebutTime!=="" || window.heureDebutDate!==''){

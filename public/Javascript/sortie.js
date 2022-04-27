@@ -1,11 +1,11 @@
 buttonsRow=""
-nom=""
+sortie=""
 
 function verif(e){
     bool=true
     
-    if(window.nom!=""){
-        bool=bool && e['libelle'].includes(window.nom)
+    if(window.sortie!=""){
+        bool=bool && e['libelle'].includes(window.sortie)
     }
 
     return bool

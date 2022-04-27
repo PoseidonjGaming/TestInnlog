@@ -78,7 +78,7 @@ class Parcour
         return $this;
     }
 
-    public function getDuree(): ?int
+    public function getDuree(): ?float
     {
         return $this->duree;
     }
@@ -114,12 +114,12 @@ class Parcour
         return $this;
     }
 
-    public function getDistance(): ?int
+    public function getDistance(): ?float
     {
         return $this->distance;
     }
 
-    public function setDistance(?int $distance): self
+    public function setDistance(?float $distance): self
     {
         $this->distance = $distance;
 

@@ -100,7 +100,7 @@ class HomeController extends AbstractController
     public function export(Aide $aide): Response
     {
         
-        if(isset($_POST['parcours']) || (isset($_GET['type'])&&$_GET['type']=='parcour')){
+        if(isset($_POST['parcoursExport']) || (isset($_GET['type'])&&$_GET['type']=='parcour')){
            
             $aide->export_parcour($_GET);
             

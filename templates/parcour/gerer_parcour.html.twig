@@ -14,9 +14,9 @@
             <thead class="table-dark">
                 <tr>
                     <th style="text-align: center; vertical-align: middle;">Utilisateur <a class="link-primary" id="sort_user">Default</a></th>
-                    <th style="text-align: center; vertical-align: middle;">Type de sortie <a class="link-primary" id="sort_user">Default</a></th>
-                    <th style="text-align: center; vertical-align: middle;">Heure de début <a class="link-primary" id="sort_user">Default</a></th>
-                    <th style="text-align: center; vertical-align: middle;">Distance <a class="link-primary" id="sort_user">Default</a></th>
+                    <th style="text-align: center; vertical-align: middle;">Type de sortie <a class="link-primary" id="sort_sortie">Default</a></th>
+                    <th style="text-align: center; vertical-align: middle;">Heure de début <a class="link-primary" id="sort_heure">Default</a></th>
+                    <th style="text-align: center; vertical-align: middle;">Distance <a class="link-primary" id="sort_distance">Default</a></th>
                     <th style="text-align: center; vertical-align: middle;" >
                         <button type="button" class="btn btn-success"  name="ajout" id="ajout" data-bs-toggle="modal" data-bs-target="#modal_modifier"
                         onclick="modifier()"> 
@@ -47,7 +47,7 @@
                     <input type="time" id="heureD" name="heureD">
                 </th> 
                 <th style="text-align: center; vertical-align: middle;">
-                    <input type="number" id="distance" name="distance" min="0">
+                    <input type="number" id="distance" name="distance" min="0" step=".1">
                 </th> 
                 <th style="text-align: center; vertical-align: middle;">
                     
@@ -280,15 +280,15 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
         modif(0,10,1,window.ListeBase)
 
     })*/
-    $('#sort_nom').click(function(){
+    $('#sort_user').click(function(){
     
         
         if(this.innerHTML=="Default"){
-            trie('nom',false)
+            trie('username',false)
             this.innerHTML="A...Z"
         }
         else if(this.innerHTML=="A...Z"){
-            trie('nom',true)
+            trie('username',true)
             this.innerHTML="Z...A"
         }
         else{
@@ -298,15 +298,51 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
         }
         
     })
-    $('#sort_prenom').click(function(){
+    $('#sort_sortie').click(function(){
     
         
         if(this.innerHTML=="Default"){
-            trie('prenom',false)
+            trie('sortie',false)
             this.innerHTML="A...Z"
         }
         else if(this.innerHTML=="A...Z"){
-            trie('prenom',true)
+            trie('sortie',true)
+            this.innerHTML="Z...A"
+        }
+        else{
+                    
+            trie('id',false)
+            this.innerHTML="Default"
+        }
+        
+    })
+    $('#sort_distance').click(function(){
+    
+        
+        if(this.innerHTML=="Default"){
+            trie('distance',false)
+            this.innerHTML="A...Z"
+        }
+        else if(this.innerHTML=="A...Z"){
+            trie('distance',true)
+            this.innerHTML="Z...A"
+        }
+        else{
+                    
+            trie('id',false)
+            this.innerHTML="Default"
+        }
+        
+    })
+     $('#sort_heure').click(function(){
+    
+        
+        if(this.innerHTML=="Default"){
+            trie('heureDebut',false)
+            this.innerHTML="A...Z"
+        }
+        else if(this.innerHTML=="A...Z"){
+            trie('heureDebut',true)
             this.innerHTML="Z...A"
         }
         else{
