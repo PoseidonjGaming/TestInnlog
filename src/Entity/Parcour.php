@@ -125,4 +125,17 @@ class Parcour
 
         return $this;
     }
+
+    public function dataJson(){      
+        $data=[
+            'id'=>$this->getId(),
+            'user'=>$this->getUser()->getUsername(),
+            'Sortie'=>$this->getTypeSortie()->getLibelle(),
+            "Duree"=>$this->getDuree(),
+            "commentaire"=>$this->getCommentaire(),
+            'heureDebut'=>$this->getHeureDebut(),
+            'distance'=>$this->getDistance()
+        ];
+        return $data;
+    }
 }
