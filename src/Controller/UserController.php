@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+
 class UserController extends AbstractController
 {
     /**
@@ -75,4 +76,43 @@ class UserController extends AbstractController
           
         ]);
     }
+
+    
+    /**
+     * @IsGranted("ROLE_super_admin")
+     * @Route("/supprimer_users", name="supprimer_user")
+     */
+    public function supprimer_users(): Response
+    {
+        $tab=array_keys($_GET);
+        $test=[];
+        $entityManager=$this->getDoctrine()->getManager();
+        foreach($tab as $int){
+            
+            if($int != "checkall"){
+                $user=$entityManager->getRepository(User::class)->findUnUser($int);
+                $entityManager->remove($user);
+                $entityManager->flush();
+            }
+
+            
+        }
+        return $this->redirectToRoute('gerer_user');
+    }
+
+    /**
+     * @IsGranted("ROLE_super_admin")
+     * @Route("/supprimer_user/{id}", name="supprimer_user")
+     */
+    public function supprimer_user($id): Response
+    {
+        $entityManager=$this->getDoctrine()->getManager();
+        $user=$entityManager->getRepository(User::class)->findUnUser($id);
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('gerer_user');
+    }
+
 }

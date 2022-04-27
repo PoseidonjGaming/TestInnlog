@@ -13,12 +13,12 @@
         <table class="table table-striped table-hover table-bordered">
             <thead class="table-dark">
                 <tr>
-                    <th style="text-align: center; vertical-align: middle; " >Nom</th>
+                    <th style="text-align: center; vertical-align: middle; " >Nom <a class="link-primary" id="sort_nom">Default</a></th>
                     <th style="text-align: center; vertical-align: middle;">
                        
                         <button type="button" class="btn btn-success"  name="ajout" id="ajout" data-bs-toggle="modal" data-bs-target="#modal_modifier"
                         onclick="modifier()"> 
-                            Ajouter une saison
+                            Ajouter un utilisateur
                         </button>
                         <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_supprimer"  onclick="supprimer()">Supprimer tous les utilisateur</button>
                 </th>
@@ -88,7 +88,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
     <div class="modal-dialog" >
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle"> Modification de la série </h5>
+                <h5 class="modal-title" id="exampleModalLongTitle"> Modification de l'utilisateur </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -197,7 +197,24 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
 
     })
     
-
+    $('#sort_nom').click(function(){
+    
+        
+        if(this.innerHTML=="Default"){
+            trie('username',false)
+            this.innerHTML="A...Z"
+        }
+        else if(this.innerHTML=="A...Z"){
+            trie('username',true)
+            this.innerHTML="Z...A"
+        }
+        else{
+                    
+            trie('id',false)
+            this.innerHTML="Default"
+        }
+        
+    })
 </script>
 {% endblock %}
 {% block stylesheets %}<link rel="stylesheet" href="CSS/switch.css" type="text/css">{% endblock %}
