@@ -12,6 +12,8 @@ use App\Form\SortieFormType;
 
 class TypeSortieController extends AbstractController
 {
+
+    //Route qui permet d'ajouter et modifier un type de sortie
     /**
      * @IsGranted("ROLE_super_admin")
      * @Route("/sortie", name="gerer_sortie")
@@ -54,7 +56,7 @@ class TypeSortieController extends AbstractController
     }
    
 
-    //Permet de supprimer un parcour
+    //Permet de supprimer un type de sortie
     /**
      * @IsGranted("ROLE_super_admin")
      * @Route("/supprimer_sortie/{id}", name="supprimer_sortie")
@@ -69,6 +71,7 @@ class TypeSortieController extends AbstractController
         return $this->redirectToRoute('gerer_sortie');
     }
 
+    //Permet de supprimer plusieurs ou tous les types de sortie
     /**
      * @IsGranted("ROLE_super_admin")
      * @Route("/supprimer_sorties", name="supprimer_sorties")
@@ -78,7 +81,7 @@ class TypeSortieController extends AbstractController
         $tab=array_keys($_GET);
         
         $entityManager=$this->getDoctrine()->getManager();
-        dump($_GET);
+        
         $exclude=["sortie","checkExport","checkall"];
         foreach($tab as $int){
             if(!in_array($int,$exclude)){
@@ -90,11 +93,8 @@ class TypeSortieController extends AbstractController
 
             
         }
-        //return $this->redirectToRoute('gerer_sortie');
-        return $this->render('test.html.twig', [
-            
-          
-        ]);
+        return $this->redirectToRoute('gerer_sortie');
+        
     }
 
 }

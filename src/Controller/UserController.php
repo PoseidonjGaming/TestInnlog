@@ -14,6 +14,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
+    //Route qui permet d'ajouter et modifer un user
     /**
      * @IsGranted("ROLE_super_admin")
      * @Route("/user", name="gerer_user")
@@ -40,7 +41,7 @@ class UserController extends AbstractController
 
             
             $roles=[];
-            //dump($_POST);
+            
             if($form->get('password')->getData()!=$_POST['passwordConfirm']){
                 return $this->render('user/gerer_user.html.twig', [
                     'user' => $lesUsers,
@@ -59,7 +60,7 @@ class UserController extends AbstractController
                     array_push($roles,'ROLE_super_admin');
                 }
                 $user->setRoles($roles);
-                dump($user);
+                
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($user);
                 $manager->flush();
@@ -77,7 +78,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    
+    //Route qui permet de supprimer un user
     /**
      * @IsGranted("ROLE_super_admin")
      * @Route("/supprimer_user/{id}", name="supprimer_user")
@@ -93,6 +94,7 @@ class UserController extends AbstractController
         return $this->redirectToRoute('gerer_user');
     }
 
+    //Route qui permet de supprimer plusieurs ou tous les users
     /**
      * @IsGranted("ROLE_super_admin")
      * @Route("/supprimer_users", name="supprimer_users")
@@ -101,7 +103,7 @@ class UserController extends AbstractController
     {
         $tab=array_keys($_GET);
         $exclude=["username","checkExport","checkall","type"];
-        dump($_GET);
+        
         $entityManager=$this->getDoctrine()->getManager();
         foreach($tab as $int){
             

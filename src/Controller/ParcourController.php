@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ParcourController extends AbstractController
 {
+    //Route d'accueil après la connexion
     /**
      * @Route("/menu", name="menu")
      */
@@ -27,6 +28,8 @@ class ParcourController extends AbstractController
         ]);
     }
 
+
+    //Route qui permet d'ajouter et modifier les parcours
     /**
      * @IsGranted("ROLE_super_admin")
      * @Route("/parcour", name="gerer_parcour")
@@ -70,7 +73,7 @@ class ParcourController extends AbstractController
     }
    
 
-    //Permet de supprimer un parcour
+    //Permet de supprimer un parcours
     /**
      * @IsGranted("ROLE_super_admin")
      * @Route("/supprimer_parcour/{id}", name="supprimer_parcour")
@@ -85,6 +88,8 @@ class ParcourController extends AbstractController
         return $this->redirectToRoute('gerer_parcour');
     }
 
+
+    //Route qui permet de supprimer plusieurs ou tous les parcours
     /**
      * @IsGranted("ROLE_super_admin")
      * @Route("/supprimer_parcours", name="supprimer_parcours")

@@ -48,7 +48,8 @@ class HomeController extends AbstractController
         
     }
 
-   
+
+    //Route appelée uniquement par l'ajax, qui permet le trie des données (la méthode de revoie des donnée a le même nom dans toutes les entités)
     /**
      * @Route("/menuJSON", name="menuJSON")
      */
@@ -78,8 +79,8 @@ class HomeController extends AbstractController
     }
 
    
-
-     /**
+    //Route qui permet de tester des idées à petite échelle
+    /**
      * @Route("/test", name="test")
      */
     public function test(Request $request): Response
@@ -93,6 +94,7 @@ class HomeController extends AbstractController
         
         
     }
+    //Route qui fait appel à la classe aide  qui écrite les fichiers à envoyer à l'utilisateur
     /**
      * @IsGranted("ROLE_admin")
      * @Route("/export", name="export")
@@ -110,7 +112,7 @@ class HomeController extends AbstractController
            $aide->export_sortie($_GET);
         }
         if(isset($_POST['usersExport']) || (isset($_GET['type'])&&$_GET['type']=='user')){
-            dump($_GET);
+            
            $aide->export_user($_GET);
         }
         
@@ -151,18 +153,14 @@ class HomeController extends AbstractController
            
         }
         else{
-            //return $this->redirectToRoute('menu');
-            dump($_GET);
+            return $this->redirectToRoute('menu');
             
-            return $this->render('test.html.twig', [
-                
-            
-            ]);
             
         }
         
     }
 
+    //Route qui déplace les fichiers donnés par l'utilisateur,la classe aide est service qui contient les méthodes d'import/export qui lit et écrit les fichiers
     /**
      * @IsGranted("ROLE_admin")
      * @Route("/import", name="import")
@@ -188,13 +186,7 @@ class HomeController extends AbstractController
             
             
         }
-        
-        
-        
-        /*return $this->render('home/test.html.twig', [
-            
-          
-        ]);*/
+    
         
         return $this->redirectToRoute('menu');
         
