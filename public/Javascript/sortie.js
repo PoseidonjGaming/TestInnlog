@@ -91,13 +91,15 @@ function modifier(nom,id){
 
 function supprimer(Id){
     document.getElementById('submitAutre').setAttribute('class','btn btn-danger');
-    document.getElementById('pModalAutre').innerHTML="Supprimer ces sorties";
+    
     document.getElementById('supModalLongTitle').innerHTML="Suppression"
     if(Id==null){
+        document.getElementById('pModalAutre').innerHTML="Supprimer ces sorties";
         document.getElementById('titreModaleSortie').innerHTML="Supprimer les sorties"
         document.getElementById('form').action='/supprimer_sorties';
     }
     else{
+        document.getElementById('pModalAutre').innerHTML="Supprimer cette sorties";
         document.getElementById('titreModaleSortie').innerHTML="Supprimer une sortie"
         document.getElementById('form').action='/supprimer_sortie/'+Id;
     }
